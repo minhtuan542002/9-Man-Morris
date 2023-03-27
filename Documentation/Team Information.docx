@@ -31,7 +31,7 @@ then dividing user stories for implementation evenly across all team members (ta
 workload).
 
 Technology Stack and Justification
-*note: ask for APIs; UI requirement; does game need to save games?; ask feedback.
+*note: ask for APIs; UI requirement; does game need to save games?; ask feedback; do we need a menu?
 Program language: Java
 Programming platform: IntelliJ IDEA CE
 UI design: Figma
