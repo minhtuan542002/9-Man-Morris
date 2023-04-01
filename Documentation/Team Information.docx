@@ -38,8 +38,9 @@ Fun fact:
 
 
 Team Schedule
-Monday after class 8pm
-Thursday 2pm
+Meeting:
+    Monday after class 8pm
+    Thursday 2pm
 
 Workload will be distributed by, identifying user stories as a team prior to each sprint,
 then dividing user stories for implementation evenly across all team members (taking into consideration
@@ -50,4 +51,7 @@ Technology Stack and Justification
 Program language: Java
 Programming platform: IntelliJ IDEA CE
 UI design: Figma
+APIs: We have not finalized the APIs technologies we would use. Here is the list of APIs we are considering:
+Java2D, Swing, SDLJAva.
+We are also considering creating our private APIs from Amazon API Gateway, because our 9MM app is built locally on our computer. Private API can help increase collaboration between team member, using the available resources. For example: the "computer player" can make use of available game play to match with the player.
 
