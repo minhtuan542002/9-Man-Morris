@@ -18,3 +18,40 @@ so they can enjoy their game which is appropriate for their current level
 As a player
 I want to save all my matches on clouds
 so I can access and review them anytime.
+
+Ryan:
+As a game player,
+I want to move my token
+So that I can form three tokens in a row
+
+As a game player,
+I want to move my token 
+So that I can form three tokens in a row
+
+As a game board,
+I want to recognise when a "mill" (three in a row) occurs
+So that a player can be allowed to remove a piece
+
+As a game board,
+I want to recognise when all 18 pieces have been played
+So that I can allow for sliding, jumping and removing moves to be played
+
+As a game board,
+I want to keep track of all of a player's mills
+So that a piece cannot be illegally removed from a mill
+
+As a game board,
+I want to ensure no illegal moves are made,
+So that a fair game can be played
+
+As a game board, 
+I want to be able to determine when a player has fewer than three pieces left (in endgame)
+So that a winner can be chosen
+
+As a game board,
+I want to be able to determine when a player has three pieces left (in endgame)
+So that, that player can unlock "jump moves"
+
+As a game board, 
+I want to ensure that moves are made in alternation between the players
+So that a fair game can be played
