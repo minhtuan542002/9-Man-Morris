@@ -2,9 +2,9 @@ As a user
 I want to have a game tutorial
 so I can learn how to play the game
 
-As a UI designer
-I want to create an simple, minimal style UI style 
-so it will increase user excitement in the game and it is easier to use.
+As a user
+I want to have a simple, minimal style UI style 
+so it will increase my excitement in the game and it is easier to use.
 
 As a user
 I want to choose my opponents between human and a computer
@@ -20,10 +20,6 @@ so I can access and review them anytime.
 
 As a game player,
 I want to move my token
-So that I can form three tokens in a row
-
-As a game player,
-I want to move my token 
 So that I can form three tokens in a row
 
 As a game board,
@@ -53,3 +49,35 @@ So that, that player can unlock "jump moves"
 As a game board, 
 I want to ensure that moves are made in alternation between the players
 So that a fair game can be played
+
+As a player,
+I want to play with my friends online,
+So I can have more fun with friends remotely.
+
+As a player,
+I want to be able to chat with my opponent throughout the match,
+So I can have fun interactions throughout my game.
+
+As a dedicated player,
+I want to have expert recommendation for my moves,
+So that I can learn and improve myself to be better at the game.
+
+As a novice player, 
+I want to have a tutorial mode,
+So that I can learn the rules of the game.
+
+As a player,
+I want to rewatch my match,
+So that I can find out how could I make my moves differently to achieve better result.
+
+As a user,
+I want to be able to spectate my friends having a match online,
+So I can have fun with them too!
+
+As a user with colour blindness,
+I want to have a board with great constrast,
+So I can figure out what is going on in the game easily,
+
+As a player,
+I want to be able to connect to my friends's phone,
+So we can have our match on our own respective devices
