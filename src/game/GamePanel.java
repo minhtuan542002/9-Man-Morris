@@ -16,7 +16,7 @@ public class GamePanel extends JPanel implements Runnable{
     final int screenHeight = tileSize * maxScreenRow;
 
     Thread gameThread;
-    PieceSet pieceSet = new PieceSet(this);
+    PieceSet pieceSet = new PieceSet(PieceColour.BLUE);
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -44,10 +44,5 @@ public class GamePanel extends JPanel implements Runnable{
     public void update(){
     }
 
-    public void paintComponent(Graphics g) {
 
-        super.paintComponent(g);
-        pieceSet.draw(g);
-        g.dispose();
-    }
 }
