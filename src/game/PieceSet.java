@@ -1,26 +1,38 @@
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class PieceSet {
+public class PieceSet extends JPanel {
     List<Piece> pieceSet = new ArrayList<>();
 
-    PieceSet(GamePanel gp){
-        for (int x = 0; x < 2; x++) {
-            for (int y = 0; y < 12; y++) {
-                Piece piece = new Piece(gp,x,y, x);
-                this.pieceSet.add(piece);
-            }
+    PieceSet(PieceColour pieceColour){
+        for (int i = 0; i < 9; i++) {
+            Piece piece = new Piece(null, pieceColour);
+            this.pieceSet.add(piece);
         }
+        setPreferredSize(new Dimension(80, 800));
     }
 
     public void draw(Graphics g){
         if (pieceSet != null){
-            for(Piece piece : pieceSet){
-                piece.draw(g);
+            for(int i =0; i< pieceSet.size(); i++){
+                Piece piece =pieceSet.get(i);
+                piece.draw(g, 0, i*piece.tileSize);
             }
         }
     }
 
+    public void paintComponent(Graphics g) {
+
+        super.paintComponent(g);
+        if (pieceSet != null){
+            for(int i =0; i< pieceSet.size(); i++){
+                Piece piece =pieceSet.get(i);
+                piece.draw(g, 0, i*piece.tileSize);
+            }
+        }
+    }
 }
