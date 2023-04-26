@@ -17,15 +17,6 @@ public class PieceSet extends JPanel {
         setBackground(Color.WHITE);
     }
 
-    public void draw(Graphics g){
-        if (pieceSet != null){
-            for(int i =0; i< pieceSet.size(); i++){
-                Piece piece =pieceSet.get(i);
-                piece.draw(g, 0, i*piece.tileSize);
-            }
-        }
-    }
-
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);

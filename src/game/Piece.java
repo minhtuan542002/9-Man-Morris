@@ -14,6 +14,7 @@ public class Piece extends JButton {
 
     int tileSize;
 
+    public JLabel pieceImage;
 
     Position currentPosition;
     GamePanel gp;
@@ -31,9 +32,11 @@ public class Piece extends JButton {
         try {
             if(this.isRed){
                 tokenPiece = ImageIO.read(new File("src/image/red_token.png"));
+                pieceImage = new JLabel(new ImageIcon("src/image/red_token.png"));
             }
             else{
                 tokenPiece = ImageIO.read(new File("src/image/blue_token.png"));
+                pieceImage = new JLabel(new ImageIcon("src/image/red_token.png"));
             }
         }catch(IOException e) {
             e.printStackTrace();

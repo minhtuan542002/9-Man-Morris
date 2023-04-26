@@ -16,7 +16,7 @@ public  class Board extends JPanel {
     private JLayeredPane layeredPane;
     private Map<Position, Piece> mapping = new HashMap<>();
 
-    private ImageIcon boardImage = getImageIcon("image/Board.png");
+    private ImageIcon boardImage = getImageIcon();
 
     public Map<Point, Position> positions = new HashMap<>();
 
@@ -42,7 +42,7 @@ public  class Board extends JPanel {
 
     public void init(Game game){
         JLabel boardImageLabel =new JLabel(boardImage);
-        layeredPane.add(boardImageLabel,0);
+        layeredPane.add(boardImageLabel,3);
         boardImageLabel.setBounds(0, 0, BOARD_LENGTH, BOARD_LENGTH);
 
         int cor_layer = 0;
@@ -50,7 +50,7 @@ public  class Board extends JPanel {
             cor_layer = layer*LAYER_DISTANCE;
             for (int i =0; i<9; i++){
                 Position position = new Position(layer,i);
-                layeredPane.add(position);
+                layeredPane.add(position,2);
 
                 switch (i) {
                     case 0:
@@ -94,14 +94,17 @@ public  class Board extends JPanel {
     public void addPieceAt(Piece piece, Position position){
         mapping.put(position, piece);
         //positionButtons.remove(position);
-        layeredPane.add(piece);
-        piece.setLocation(position.getLocation());
-        System.out.println(position.getLocation());
-        System.out.println(piece.getLocation());
-        System.out.println(mapping.size());
+        piece.setCurrentPosition(position);
+        layeredPane.add(piece,1);
+        layeredPane.add(piece.pieceImage, 0);
+        piece.setBounds(position.getBounds());
+        piece.pieceImage.setBounds(position.getBounds());
+
+        //System.out.println(mapping.size());
+        //if()
     }
 
-    public ImageIcon getImageIcon(String path) {
+    public ImageIcon getImageIcon() {
         if(new ImageIcon("src/image/Board.png")==null)System.out.println("HH");
         return new ImageIcon("src/image/Board.png");
 
@@ -114,6 +117,7 @@ public  class Board extends JPanel {
         //g.drawImage(boardImage, 0, 0, 800, 800,null);
         for(Map.Entry<Position, Piece> entry : mapping.entrySet()){
             Point location = entry.getValue().getLocation();
+            System.out.println(location);
             entry.getValue().draw(g, location.x, location.y);
         }
 
