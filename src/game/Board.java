@@ -13,11 +13,14 @@ public  class Board extends JPanel {
 
     public Board(){
         getBoardImage();
+        setPreferredSize(new Dimension(800, 800));
+        setBackground(Color.WHITE);
     }
 
     public Boolean hasPieceAt(Position position){
         if(mapping.get(position)==null) return false;
         else return  true;
+
     }
 
     public Piece getPiece(Position position){

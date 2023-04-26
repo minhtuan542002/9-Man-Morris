@@ -23,24 +23,13 @@ public class Game {
         frame.setResizable(false);
         frame.setTitle("Nine Man's Morris");
 
-        board.setPreferredSize(new Dimension(800, 800));
-        board.setBackground(Color.WHITE);
-        board.setDoubleBuffered(true);
-
         red_piece_panel= new PieceSet(PieceColour.RED);
 
-        red_piece_panel.setBackground(Color.WHITE);
-        red_piece_panel.setDoubleBuffered(true);
-
-        blue_piece_panel= new PieceSet(PieceColour.RED);
-
-        blue_piece_panel.setBackground(Color.WHITE);
-        blue_piece_panel.setDoubleBuffered(true);
+        blue_piece_panel= new PieceSet(PieceColour.BLUE);
 
         frame.add(display);
         display.add(red_piece_panel);
         display.add(board);
-
         display.add(blue_piece_panel);
 
 
