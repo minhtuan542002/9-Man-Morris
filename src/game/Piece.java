@@ -11,35 +11,20 @@ public class Piece {
     int yp;
     boolean isRed;
 
+    int tileSize;
+
 
     Position currentPosition;
     GamePanel gp;
     public BufferedImage tokenPiece;
 
-    public Piece(GamePanel gp){
-        this.gp = gp;
-        this.xp = gp.tileSize;
-        this.yp = gp.tileSize;
-        this.isRed = true;
-        this.currentPosition = new Position(1,2);
-        getPieceImage();
-
-    }
-
-    public Piece(GamePanel gp, int x, int y, int colour){
-        this.currentPosition = new Position(x,y);
-        this.gp = gp;
-
-        this.xp = x * gp.tileSize;
-        this.yp = y * gp.tileSize;
-
-        this.isRed = colour != 1;
-
+    public Piece(Position position, PieceColour pieceColour){
+        this.isRed = pieceColour == PieceColour.RED;
         getPieceImage();
     }
-
     public void getPieceImage() {
         try {
+            tileSize =16*5;
             if(this.isRed){
                 tokenPiece = ImageIO.read(new File("src/image/red_token.png"));
             }
@@ -59,5 +44,10 @@ public class Piece {
     public void draw(Graphics g) {
         BufferedImage image = tokenPiece;
         g.drawImage(image, xp, yp, gp.tileSize, gp.tileSize, null);
+    }
+
+    public void draw(Graphics g, int x_position, int y_position) {
+        BufferedImage image = tokenPiece;
+        g.drawImage(image, x_position, y_position, tileSize, tileSize, null);
     }
 }
