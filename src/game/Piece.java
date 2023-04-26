@@ -1,3 +1,4 @@
+package game;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
