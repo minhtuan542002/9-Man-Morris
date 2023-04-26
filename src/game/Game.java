@@ -1,10 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Map;
 
-public class Game {
+public class Game implements ActionListener {
     private JFrame frame = null;
     private Board board =null;
     private Display display =null;
+
+    private Player player=null;
 
     private boolean running =false;
 
@@ -15,9 +20,10 @@ public class Game {
     public Game(){
         board = new Board();
         display = new Display();
-
+        player = new Player();
     }
     public void init(){
+        board.init(this);
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -53,9 +59,18 @@ public class Game {
         init();
         running=true;
         while (running){
-            System.out.println("Game loop is running");
+            //System.out.println("Game loop is running");
             display.repaint();
         }
         frame.dispose();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        for(Map.Entry<Point, Position> entry : board.positions.entrySet()){
+            if(entry.getValue()==e.getSource()){
+                System.out.println(entry.getKey());
+            }
+        }
     }
 }

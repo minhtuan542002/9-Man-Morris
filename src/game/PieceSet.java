@@ -13,7 +13,7 @@ public class PieceSet extends JPanel {
             Piece piece = new Piece(null, pieceColour);
             this.pieceSet.add(piece);
         }
-        setPreferredSize(new Dimension(80, 800));
+        setPreferredSize(new Dimension(100, 800));
         setBackground(Color.WHITE);
     }
 
