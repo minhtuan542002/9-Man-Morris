@@ -1,21 +1,16 @@
 import javax.swing.*;
+import java.awt.*;
 
-public class Display {
-    private JFrame window = null;
+public class Display extends JPanel{
+
+    //public Display()
+
     public void init(){
-        window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
-        window.setTitle("Nine Man's Morris");
 
-        GamePanel display = new GamePanel();
-        window.add(display);
+    }
 
-        window.pack();
-
-        window.setLocationRelativeTo(null);
-        window.setVisible(true);
-
-        display.setGameThread();
+    public void update() {
+        // DRAW:
+        repaint();
     }
 }
