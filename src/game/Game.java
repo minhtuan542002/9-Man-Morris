@@ -10,7 +10,7 @@ public class Game {
 
     private Boolean isRedTurn =true;
     private JPanel red_piece_panel =null;
-    private JPanel text_panel =null;
+
     private JPanel blue_piece_panel = null;
     public Game(){
         board = new Board();
@@ -22,15 +22,23 @@ public class Game {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setTitle("Nine Man's Morris");
+        frame.setBackground(Color.WHITE);
 
         red_piece_panel= new PieceSet(PieceColour.RED);
 
         blue_piece_panel= new PieceSet(PieceColour.BLUE);
 
+
+        display.init();
         frame.add(display);
-        display.add(red_piece_panel);
-        display.add(board);
-        display.add(blue_piece_panel);
+        JPanel container =new JPanel();
+
+        container.add(red_piece_panel);
+        container.add(board);
+        container.add(blue_piece_panel);
+
+
+        display.add(container);
 
 
         frame.pack();
@@ -48,5 +56,6 @@ public class Game {
             System.out.println("Game loop is running");
             display.repaint();
         }
+        frame.dispose();
     }
 }
