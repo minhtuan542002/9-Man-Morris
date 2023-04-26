@@ -14,9 +14,9 @@ public class Game implements ActionListener {
     private boolean running =false;
 
     private Boolean isRedTurn =true;
-    private JPanel red_piece_panel =null;
+    private PieceSet red_piece_panel =null;
 
-    private JPanel blue_piece_panel = null;
+    private PieceSet blue_piece_panel = null;
     public Game(){
         board = new Board();
         display = new Display();
@@ -70,6 +70,13 @@ public class Game implements ActionListener {
         for(Map.Entry<Point, Position> entry : board.positions.entrySet()){
             if(entry.getValue()==e.getSource()){
                 System.out.println(entry.getKey());
+                Piece piece;
+                if(isRedTurn){
+                    piece =red_piece_panel.useOnePiece();
+                }
+                else piece =blue_piece_panel.useOnePiece();
+                piece.setCurrentPosition(entry.getValue());
+                board.addPieceAt(piece, entry.getValue());
             }
         }
     }

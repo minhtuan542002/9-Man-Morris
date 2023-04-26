@@ -15,7 +15,7 @@ public class Position extends JButton {
     Position(int layer, int positionNumber){
         this.layer = layer;
         this.positionNumber = positionNumber;
-        setPreferredSize(new Dimension(70, 70));
+        setSize(new Dimension(70, 70));
         setBackground(Color.BLUE);
     }
 

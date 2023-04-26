@@ -36,4 +36,11 @@ public class PieceSet extends JPanel {
             }
         }
     }
+
+    public Piece useOnePiece(){
+        Piece piece = pieceSet.get(pieceSet.size()-1);
+        pieceSet.remove(pieceSet.size()-1);
+        return piece;
+    }
+
 }

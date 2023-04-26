@@ -1,13 +1,8 @@
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.List;
 
 import static java.lang.Math.round;
 
@@ -17,22 +12,26 @@ public  class Board extends JPanel {
     final int BUTTON_SIZE = 70;
 
     final int LAYER_DISTANCE = 110;
+
+    private JLayeredPane layeredPane;
     private Map<Position, Piece> mapping = new HashMap<>();
 
-    private Image boardImage;
+    private ImageIcon boardImage = getImageIcon("image/Board.png");
 
     public Map<Point, Position> positions = new HashMap<>();
 
-    JPanel positionButtons = null;
+
 
     public Board(){
-        getBoardImage();
+        //setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         setPreferredSize(new Dimension(800, 800));
         setBackground(Color.WHITE);
-        setBorder(BorderFactory.createEmptyBorder());
         FlowLayout layout = (FlowLayout)this.getLayout();
         layout.setVgap(0);
         layout.setHgap(0);
+        layeredPane = new JLayeredPane();
+        layeredPane.setPreferredSize(new Dimension(800, 800));
+        layeredPane.setBorder(BorderFactory.createEmptyBorder());
     }
 
     public Boolean hasPieceAt(Position position){
@@ -42,53 +41,50 @@ public  class Board extends JPanel {
     }
 
     public void init(Game game){
-        positionButtons =new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-        positionButtons.setOpaque(false);
-        positionButtons.setPreferredSize(new Dimension(800, 800));
-        positionButtons.setLayout(null);
-        positionButtons.setBorder(BorderFactory.createEmptyBorder());
+        JLabel boardImageLabel =new JLabel(boardImage);
+        layeredPane.add(boardImageLabel,0);
+        boardImageLabel.setBounds(0, 0, BOARD_LENGTH, BOARD_LENGTH);
+
         int cor_layer = 0;
         for(int layer =0; layer <3; layer++){
             cor_layer = layer*LAYER_DISTANCE;
             for (int i =0; i<9; i++){
                 Position position = new Position(layer,i);
-                positionButtons.add(position);
-                System.out.println(cor_layer);
-                System.out.println((BOARD_LENGTH-BUTTON_SIZE)/2);
-                System.out.println(BOARD_LENGTH-cor_layer-BUTTON_SIZE);
+                layeredPane.add(position);
 
                 switch (i) {
                     case 0:
-                        position.setLocation(cor_layer, cor_layer);
+                        position.setBounds(cor_layer, cor_layer, BUTTON_SIZE, BUTTON_SIZE);
                         break;
                     case 1:
-                        position.setLocation((round(BOARD_LENGTH-BUTTON_SIZE)/2), cor_layer);
+                        position.setBounds((round(BOARD_LENGTH-BUTTON_SIZE)/2), cor_layer, BUTTON_SIZE, BUTTON_SIZE);
                         break;
                     case 3:
-                        position.setLocation(BOARD_LENGTH-cor_layer-BUTTON_SIZE, cor_layer);
+                        position.setBounds(BOARD_LENGTH-cor_layer-BUTTON_SIZE, cor_layer, BUTTON_SIZE, BUTTON_SIZE);
                         break;
                     case 4:
-                        position.setLocation(BOARD_LENGTH-cor_layer-BUTTON_SIZE, round((BOARD_LENGTH-BUTTON_SIZE)/2));
+                        position.setBounds(BOARD_LENGTH-cor_layer-BUTTON_SIZE, round((BOARD_LENGTH-BUTTON_SIZE)/2), BUTTON_SIZE, BUTTON_SIZE);
                         break;
                     case 5:
-                        position.setLocation(BOARD_LENGTH-cor_layer-BUTTON_SIZE, BOARD_LENGTH-cor_layer-BUTTON_SIZE);
+                        position.setBounds(BOARD_LENGTH-cor_layer-BUTTON_SIZE, BOARD_LENGTH-cor_layer-BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
                         break;
                     case 6:
-                        position.setLocation(round((BOARD_LENGTH-BUTTON_SIZE)/2), BOARD_LENGTH-cor_layer-BUTTON_SIZE);
+                        position.setBounds(round((BOARD_LENGTH-BUTTON_SIZE)/2), BOARD_LENGTH-cor_layer-BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
                         break;
                     case 7:
-                        position.setLocation(cor_layer, BOARD_LENGTH-cor_layer-BUTTON_SIZE);
+                        position.setBounds(cor_layer, BOARD_LENGTH-cor_layer-BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
                         break;
                     case 8:
-                        position.setLocation(cor_layer, round((BOARD_LENGTH-BUTTON_SIZE)/2));
+                        position.setBounds(cor_layer, round((BOARD_LENGTH-BUTTON_SIZE)/2), BUTTON_SIZE, BUTTON_SIZE);
                         break;
                 }
-                position.setSize(70,70);
                 position.addActionListener(game);
                 positions.put(new Point(layer, i), position);
             }
         }
-        add(positionButtons);
+        //Add control pane and layered pane to this JPanel.
+        add(Box.createRigidArea(new Dimension(0, 10)));
+        add(layeredPane);
     }
 
     public Piece getPiece(Position position){
@@ -97,21 +93,30 @@ public  class Board extends JPanel {
 
     public void addPieceAt(Piece piece, Position position){
         mapping.put(position, piece);
+        //positionButtons.remove(position);
+        layeredPane.add(piece);
+        piece.setLocation(position.getLocation());
+        System.out.println(position.getLocation());
+        System.out.println(piece.getLocation());
+        System.out.println(mapping.size());
     }
 
-    public void getBoardImage() {
-        try {
-            boardImage = ImageIO.read(new File("src/image/Board.png"));
+    public ImageIcon getImageIcon(String path) {
+        if(new ImageIcon("src/image/Board.png")==null)System.out.println("HH");
+        return new ImageIcon("src/image/Board.png");
 
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-        g.drawImage(boardImage, 0, 0, 800, 800,null);
+        //g.drawImage(boardImage, 0, 0, 800, 800,null);
+        for(Map.Entry<Position, Piece> entry : mapping.entrySet()){
+            Point location = entry.getValue().getLocation();
+            entry.getValue().draw(g, location.x, location.y);
+        }
+
     }
 
 

@@ -20,12 +20,15 @@ public class Piece extends JButton {
     public BufferedImage tokenPiece;
 
     public Piece(Position position, PieceColour pieceColour){
+        tileSize =70;
+        setSize(tileSize,tileSize);
         this.isRed = pieceColour == PieceColour.RED;
+        setBackground(Color.PINK);
         getPieceImage();
+
     }
     public void getPieceImage() {
         try {
-            tileSize =16*5;
             if(this.isRed){
                 tokenPiece = ImageIO.read(new File("src/image/red_token.png"));
             }
@@ -43,10 +46,6 @@ public class Piece extends JButton {
         this.isRed = !this.isRed;
     }
 
-    public void draw(Graphics g) {
-        BufferedImage image = tokenPiece;
-        g.drawImage(image, xp, yp, gp.tileSize, gp.tileSize, null);
-    }
 
     public void draw(Graphics g, int x_position, int y_position) {
         BufferedImage image = tokenPiece;
