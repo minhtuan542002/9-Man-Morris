@@ -3,7 +3,12 @@ package action;
 import piece.Piece;
 import game.Board;
 import game.Position;
-
+/**
+ * Move Piece adjacently
+ * Created by 
+ * @author Thanh Nguyen
+ * Modified by: 
+ * */
 public interface Move {
     public String execute(Piece piece, Board board, Position position);
     /**

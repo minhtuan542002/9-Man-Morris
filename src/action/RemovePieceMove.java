@@ -4,7 +4,12 @@ import piece.Piece;
 import status.Status;
 import game.Board;
 import game.Position;
-
+/**
+ * Remove Piece form Board
+ * Created by 
+ * @author Thanh Nguyen
+ * Modified by: 
+ * */
 public class RemovePieceMove implements Move {
     @Override
     public String execute(Piece piece, Board board, Position position) {
