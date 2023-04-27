@@ -5,8 +5,6 @@ import Status.Status;
 import game.Board;
 import game.Position;
 
-import java.awt.*;
-
 public class RemovePieceAction implements Action{
     @Override
     public String execute(Piece piece, Board board, Position position) {
