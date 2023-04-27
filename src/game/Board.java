@@ -107,7 +107,13 @@ public  class Board extends JPanel {
         return mapping.get(position);
     }
 
-    public void removePiece(Position position, Piece piece){mapping.remove(position, piece);}
+    public void removePiece(Piece piece){
+        if(piece.getCurrentPosition() == null){
+            throw new RuntimeException("Piece do ot have position");
+        }
+        mapping.remove(piece.getCurrentPosition(), piece);
+        piece.setCurrentPosition(null);
+    }
 
 
     public void addPieceAt(Piece piece, Position position){
