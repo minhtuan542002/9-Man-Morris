@@ -1,4 +1,4 @@
-package Action;
+package action;
 
 import game.Board;
 import Piece.Piece;
