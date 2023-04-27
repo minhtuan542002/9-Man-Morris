@@ -1,6 +1,7 @@
 package game;
 
 import Piece.Piece;
+import Status.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -108,9 +109,6 @@ public  class Board extends JPanel {
 
     public void removePiece(Position position, Piece piece){mapping.remove(position, piece);}
 
-    public void replacePiece(Position position, Piece newPiece, Piece oldPiece){
-        mapping.replace(position,oldPiece,newPiece);
-    }
 
     public void addPieceAt(Piece piece, Position position){
         mapping.put(position, piece);
@@ -120,7 +118,7 @@ public  class Board extends JPanel {
         layeredPane.add(piece.pieceImage, 0);
         piece.setBounds(position.getBounds());
         piece.pieceImage.setBounds(position.getBounds());
-        System.out.println(position.layer + " + " + position.positionNumber);
+        System.out.println(position.x_coordinate + " + " + position.y_coordinate);
         //System.out.println(mapping.size());
         //if()
     }
@@ -144,5 +142,24 @@ public  class Board extends JPanel {
 
     }
 
+    public int getNumberOfRedPieces (){
+        int redNo=0;
+        for (Map.Entry<Position,Piece> i: mapping.entrySet()){
+            if (i.getValue().hasStatus(Status.RED)){
+                redNo +=1;
+            }
+        }
+        return redNo;
+    }
+
+    public int getNumberOfBluePieces (){
+        int blueNo=0;
+        for (Map.Entry<Position,Piece> i: mapping.entrySet()){
+            if (i.getValue().hasStatus(Status.BLUE)){
+                blueNo +=1;
+            }
+        }
+        return blueNo;
+    }
 
 }

@@ -7,6 +7,7 @@ public class Player_2 extends Player{
         super(name);
         this.addStatus(Status.HUMAN);
         this.addStatus(Status.BLUE);
+        this.addStatus(Status.PHASE_1);
     }
 
 }

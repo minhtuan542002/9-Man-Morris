@@ -35,4 +35,7 @@ public class PieceSet extends JPanel {
         return piece;
     }
 
+    public int getPieceSetSize(){
+        return pieceSet.size();
+    }
 }

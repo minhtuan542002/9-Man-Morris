@@ -6,7 +6,7 @@ public enum Status {
     IN_MILL,
     OUTSIDE_MILL,
     HUMAN,
-    COMPUTER,
-    PHASE_2,
+    COMPUTER, PHASE_1,
+    PHASE_2, ACTIVE_FLY,
     PHASE_3
 }

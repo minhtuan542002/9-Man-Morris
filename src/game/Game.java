@@ -2,11 +2,11 @@ package game;
 import Piece.*;
 import Player.*;
 import Status.Status;
-
+import Action.Action;
+import Action.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.Map;
 
 public class Game implements ActionListener {
@@ -20,6 +20,8 @@ public class Game implements ActionListener {
 
     private Boolean isRedTurn =true;
     private PieceSet red_piece_panel =null;
+    private Status gamePhase;
+    private Piece targetPiece = null;
 
     private PieceSet blue_piece_panel = null;
     public Game(){
@@ -27,6 +29,7 @@ public class Game implements ActionListener {
         display = new Display();
         player1 = new Player_1("Player 1");
         player2 = new Player_2("Player 2");
+        gamePhase = Status.PHASE_1;
     }
     public void init(){
         board.init(this);
@@ -78,17 +81,51 @@ public class Game implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         for(Map.Entry<Point, Position> entry : board.positions.entrySet()){
+            System.out.println(e.getSource());
             if(entry.getValue()==e.getSource()){
                 //System.out.println(entry.getKey());
-                Piece piece;
-                if(isRedTurn){
-                    piece =red_piece_panel.useOnePiece();
+                if (gamePhase == Status.PHASE_1) {
+                    Piece piece;
+                    if (isRedTurn) {
+                        piece = red_piece_panel.useOnePiece();
+                    } else piece = blue_piece_panel.useOnePiece();
+                    piece.setCurrentPosition(entry.getValue());
+                    board.addPieceAt(piece, entry.getValue());
+
+                    toggleTurn();
+                    if (red_piece_panel.getPieceSetSize() == 0 && blue_piece_panel.getPieceSetSize() == 0) {
+                        gamePhase = Status.PHASE_2;
+                    }
                 }
-                else piece =blue_piece_panel.useOnePiece();
-                piece.setCurrentPosition(entry.getValue());
-                board.addPieceAt(piece, entry.getValue());
-                toggleTurn();
+                else if (gamePhase == Status.PHASE_2){
+                    System.out.println("Phase 2 starts");
+                    System.out.print(entry.getValue());
+                    System.out.println(board.getPiece(entry.getValue()));
+                    //targetPiece = board.getPiece(entry.getValue());
+                    if (isRedTurn){
+/*                        Action action = new RemovePieceAction();
+                        action.execute(targetPiece,board,entry.getValue());*/
+                    }else {
+/*                        Action action = new RemovePieceAction();
+                        action.execute(targetPiece,board,entry.getValue());*/
+                    }
+                    if (board.getNumberOfBluePieces() == 3){
+                        player2.addStatus(Status.ACTIVE_FLY);
+                        gamePhase = Status.PHASE_3;
+                    } else if (board.getNumberOfRedPieces() == 3){
+                        player1.hasStatus(Status.ACTIVE_FLY);
+                        gamePhase = Status.PHASE_3;
+                    }
+                    toggleTurn();
+                } else if (gamePhase == Status.PHASE_3){
+                    System.out.println("Phase 3 starts");
+
+
+                }
+
             }
         }
     }
+
+
 }
