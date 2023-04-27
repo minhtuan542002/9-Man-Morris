@@ -88,10 +88,28 @@ public  class Board extends JPanel {
         //Add control pane and layered pane to this JPanel.
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(layeredPane);
+        //System.out.println(getPositions());
+    }
+
+    public Boolean containPosition(Position position){
+        if (!positions.containsValue(position)){
+            return false;
+        }
+        return true;
+    }
+
+    public Map<Point, Position> getPositions() {
+        return positions;
     }
 
     public Piece getPiece(Position position){
         return mapping.get(position);
+    }
+
+    public void removePiece(Position position, Piece piece){mapping.remove(position, piece);}
+
+    public void replacePiece(Position position, Piece newPiece, Piece oldPiece){
+        mapping.replace(position,oldPiece,newPiece);
     }
 
     public void addPieceAt(Piece piece, Position position){
@@ -102,7 +120,7 @@ public  class Board extends JPanel {
         layeredPane.add(piece.pieceImage, 0);
         piece.setBounds(position.getBounds());
         piece.pieceImage.setBounds(position.getBounds());
-
+        System.out.println(position);
         //System.out.println(mapping.size());
         //if()
     }
@@ -120,7 +138,7 @@ public  class Board extends JPanel {
         //g.drawImage(boardImage, 0, 0, 800, 800,null);
         for(Map.Entry<Position, Piece> entry : mapping.entrySet()){
             Point location = entry.getValue().getLocation();
-            System.out.println(location);
+            //System.out.println(location);
             entry.getValue().draw(g, location.x, location.y);
         }
 

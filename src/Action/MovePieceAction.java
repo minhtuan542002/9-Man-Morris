@@ -12,24 +12,21 @@ public class MovePieceAction extends Action implements Move {
     }
 
     @Override
-    public void moveTo(Position position, Piece piece) {
-
+    public void moveAdjancent(Position position, Piece piece, Board board) {
+        /* List<Position> temp = piece.getCurrentPosition().availableMove();
+        if (temp.contains(position)){
+            piece.setCurrentPosition(position);
+        }*/
     }
 
-    @Override
-    public void placePiece(Position position, Piece piece) {
-
-    }
 
     @Override
     public void removePiece(Piece piece, Board board) {
-
+        board.removePiece(piece.getCurrentPosition(),piece);
     }
 
     @Override
-    public void fly(Position position, Piece piece) {
+    public void fly(Position position, Piece piece, Board board) {
 
     }
-
-
 }
