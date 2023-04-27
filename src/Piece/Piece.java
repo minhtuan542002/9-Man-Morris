@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Piece extends JButton {
@@ -52,6 +53,10 @@ public class Piece extends JButton {
 
     public void setCurrentPosition(Position position){this.currentPosition=position;}
 
+    public Position getCurrentPosition() {
+        return currentPosition;
+    }
+
     public void toggleColour(){
         this.isRed = !this.isRed;
     }
@@ -62,6 +67,11 @@ public class Piece extends JButton {
         g.drawImage(image, x_position, y_position, tileSize, tileSize, null);
     }
 
+    public List<Position> availableMove(){
+        List<Position> temp = new ArrayList<>();
+        return temp;
+    }
+
     public boolean hasStatus(Enum<?> status) {
         return statusSet.hasStatus(status);
     }
@@ -69,7 +79,9 @@ public class Piece extends JButton {
     public void addStatus(Enum<?> status) {
         statusSet.addStatus(status);
     }
-
+    public void removeStatus(Enum<?> status) {
+        statusSet.removeStatus(status);
+    }
     public List<Enum<?>> statusList() {
         return statusSet.statusList();
     }

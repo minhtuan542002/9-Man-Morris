@@ -145,7 +145,7 @@ public class Game implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         for(Map.Entry<Point, Position> entry : board.positions.entrySet()){
             if(entry.getValue()==e.getSource()){
-                System.out.println(entry.getKey());
+                //System.out.println(entry.getKey());
                 Piece piece;
                 if(isRedTurn){
                     piece =red_piece_panel.useOnePiece();
@@ -153,7 +153,6 @@ public class Game implements ActionListener {
                 else piece =blue_piece_panel.useOnePiece();
                 piece.setCurrentPosition(entry.getValue());
                 board.addPieceAt(piece, entry.getValue());
-
                 toggleTurn();
             }
         }

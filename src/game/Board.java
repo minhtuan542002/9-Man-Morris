@@ -62,22 +62,22 @@ public  class Board extends JPanel {
                     case 1:
                         position.setBounds((round(BOARD_LENGTH-BUTTON_SIZE)/2), cor_layer, BUTTON_SIZE, BUTTON_SIZE);
                         break;
-                    case 3:
+                    case 2:
                         position.setBounds(BOARD_LENGTH-cor_layer-BUTTON_SIZE, cor_layer, BUTTON_SIZE, BUTTON_SIZE);
                         break;
-                    case 4:
+                    case 3:
                         position.setBounds(BOARD_LENGTH-cor_layer-BUTTON_SIZE, round((BOARD_LENGTH-BUTTON_SIZE)/2), BUTTON_SIZE, BUTTON_SIZE);
                         break;
-                    case 5:
+                    case 4:
                         position.setBounds(BOARD_LENGTH-cor_layer-BUTTON_SIZE, BOARD_LENGTH-cor_layer-BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
                         break;
-                    case 6:
+                    case 5:
                         position.setBounds(round((BOARD_LENGTH-BUTTON_SIZE)/2), BOARD_LENGTH-cor_layer-BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
                         break;
-                    case 7:
+                    case 6:
                         position.setBounds(cor_layer, BOARD_LENGTH-cor_layer-BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
                         break;
-                    case 8:
+                    case 7:
                         position.setBounds(cor_layer, round((BOARD_LENGTH-BUTTON_SIZE)/2), BUTTON_SIZE, BUTTON_SIZE);
                         break;
                 }
@@ -88,10 +88,28 @@ public  class Board extends JPanel {
         //Add control pane and layered pane to this JPanel.
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(layeredPane);
+        //System.out.println(getPositions());
+    }
+
+    public Boolean containPosition(Position position){
+        if (!positions.containsValue(position)){
+            return false;
+        }
+        return true;
+    }
+
+    public Map<Point, Position> getPositions() {
+        return positions;
     }
 
     public Piece getPiece(Position position){
         return mapping.get(position);
+    }
+
+    public void removePiece(Position position, Piece piece){mapping.remove(position, piece);}
+
+    public void replacePiece(Position position, Piece newPiece, Piece oldPiece){
+        mapping.replace(position,oldPiece,newPiece);
     }
 
     public void addPieceAt(Piece piece, Position position){
@@ -102,7 +120,7 @@ public  class Board extends JPanel {
         layeredPane.add(piece.pieceImage, 0);
         piece.setBounds(position.getBounds());
         piece.pieceImage.setBounds(position.getBounds());
-
+        System.out.println(position.getLayer() + " + " + position.getPositionNumber());
         //System.out.println(mapping.size());
         //if()
     }
@@ -120,7 +138,7 @@ public  class Board extends JPanel {
         //g.drawImage(boardImage, 0, 0, 800, 800,null);
         for(Map.Entry<Position, Piece> entry : mapping.entrySet()){
             Point location = entry.getValue().getLocation();
-            System.out.println(location);
+            //System.out.println(location);
             entry.getValue().draw(g, location.x, location.y);
         }
 

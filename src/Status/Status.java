@@ -6,5 +6,7 @@ public enum Status {
     IN_MILL,
     OUTSIDE_MILL,
     HUMAN,
-    COMPUTER
+    COMPUTER,
+    PHASE_2,
+    PHASE_3
 }
