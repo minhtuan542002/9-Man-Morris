@@ -4,7 +4,7 @@ import piece.Piece;
 import game.Board;
 import game.Position;
 
-public interface Action {
+public interface Move {
     public String execute(Piece piece, Board board, Position position);
     /**
      * Action Execution method

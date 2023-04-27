@@ -5,7 +5,7 @@ import status.Status;
 import game.Board;
 import game.Position;
 
-public class RemovePieceAction implements Action{
+public class RemovePieceMove implements Move {
     @Override
     public String execute(Piece piece, Board board, Position position) {
         String result = "";

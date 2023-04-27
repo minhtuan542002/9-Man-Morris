@@ -4,7 +4,7 @@ import piece.Piece;
 import game.Board;
 import game.Position;
 
-public class FlyPieceAction implements Action{
+public class FlyPieceMove implements Move {
     @Override
     public String execute(Piece piece, Board board, Position position) {
         if (!board.hasPieceAt(position)){
