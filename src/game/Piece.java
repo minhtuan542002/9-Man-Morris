@@ -24,7 +24,7 @@ public class Piece extends JButton {
         tileSize =70;
         setSize(tileSize,tileSize);
         this.isRed = pieceColour == PieceColour.RED;
-        setBackground(Color.PINK);
+        //setBackground(Color.PINK);
         getPieceImage();
 
     }
@@ -36,7 +36,7 @@ public class Piece extends JButton {
             }
             else{
                 tokenPiece = ImageIO.read(new File("src/image/blue_token.png"));
-                pieceImage = new JLabel(new ImageIcon("src/image/red_token.png"));
+                pieceImage = new JLabel(new ImageIcon("src/image/blue_token.png"));
             }
         }catch(IOException e) {
             e.printStackTrace();

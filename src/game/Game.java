@@ -66,7 +66,7 @@ public class Game implements ActionListener {
     }
 
     private void toggleTurn(){
-        isRedTurn=!isRedTurn;
+        isRedTurn= !isRedTurn;
     }
 
     @Override
