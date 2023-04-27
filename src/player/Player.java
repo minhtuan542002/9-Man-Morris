@@ -5,7 +5,7 @@ import status.StatusSet;
 
 import java.util.List;
 
-public abstract class Player implements State {
+public class Player implements State {
 
     private String name;
     private final StatusSet statusSet = new StatusSet();
