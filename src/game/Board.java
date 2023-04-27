@@ -118,7 +118,7 @@ public  class Board extends JPanel {
         layeredPane.add(piece.pieceImage, 0);
         piece.setBounds(position.getBounds());
         piece.pieceImage.setBounds(position.getBounds());
-        //System.out.println(mapping.size());
+        System.out.println(mapping.size());
         //if()
     }
 

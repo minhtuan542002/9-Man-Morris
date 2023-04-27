@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Piece extends JButton implements State{
+public class Piece extends JLabel implements State{
     int xp;
     int yp;
     boolean isRed;
