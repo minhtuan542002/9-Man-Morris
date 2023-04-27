@@ -12,8 +12,8 @@ public class Game implements ActionListener {
     private JFrame frame = null;
     private Board board =null;
     private Display display =null;
-    private Player_1 player1;
-    private Player_2 player2;
+    private Player player1;
+    private Player player2;
 
     private boolean running =false;
 
@@ -26,8 +26,8 @@ public class Game implements ActionListener {
     public Game(){
         board = new Board();
         display = new Display();
-        player1 = new Player_1("Player 1");
-        player2 = new Player_2("Player 2");
+        player1 = new Player("Player 1");
+        player2 = new Player("Player 2");
         gamePhase = Status.PHASE_1;
     }
     public void init(){
