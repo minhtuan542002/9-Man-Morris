@@ -1,6 +1,9 @@
 package Player;
 
-public abstract class Player {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public abstract class Player implements ActionListener {
 
     private String name;
     private PlayerType playerType;
@@ -30,5 +33,10 @@ public abstract class Player {
 
     public void setPlayerType(PlayerType playerType) {
         this.playerType = playerType;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }

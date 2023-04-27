@@ -1,3 +1,6 @@
+package game;
+import Player.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,7 +12,8 @@ public class Game implements ActionListener {
     private Board board =null;
     private Display display =null;
 
-    private Player player=null;
+    private Player_1 player1 = null;
+    private Player_2 player2 = null;
 
     private boolean running =false;
 
@@ -20,7 +24,8 @@ public class Game implements ActionListener {
     public Game(){
         board = new Board();
         display = new Display();
-        player = new Player();
+        player1 = new Player_1("Player 1");
+        player2 = new Player_2("Player 2");
     }
     public void init(){
         board.init(this);
