@@ -98,8 +98,11 @@ public class Game implements ActionListener {
                 }
                 else if (gamePhase == Status.PHASE_2){
                     System.out.println("Phase 2 starts");
-                    System.out.print(entry.getValue());
-                    System.out.println(board.getPiece(entry.getValue()));
+                    System.out.println(entry.getValue().layer);
+                    System.out.println(entry.getValue().positionNumber);
+                    System.out.println(entry.getValue().getLocation());
+                    System.out.println(board.getPiece(entry.getValue()).getLocation());
+                    System.out.println(board.getPiece(entry.getValue()).getCurrentPosition().getLocation());
                     //targetPiece = board.getPiece(entry.getValue());
                     if (isRedTurn){
 /*                        Action action = new RemovePieceAction();
