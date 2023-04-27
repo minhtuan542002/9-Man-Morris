@@ -125,9 +125,8 @@ public class Game implements ActionListener {
                 */
                     piece = board.getPiece(entry.getValue());
                     if(board.hasPieceAt(entry.getValue())) {
-                        if (currentMove == null) {
-                            currentMove = new MovePieceMove(piece);
-                        }
+                        currentMove = new MovePieceMove(piece);
+
                     }
                     else {
                         if (currentMove != null) {
