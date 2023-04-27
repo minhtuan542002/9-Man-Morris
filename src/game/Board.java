@@ -91,7 +91,7 @@ public  class Board extends JPanel {
         int cor_layer = 0;
         for(int layer =0; layer <3; layer++){
             cor_layer = layer*LAYER_DISTANCE;
-            for (int i =0; i<9; i++){
+            for (int i =0; i<8; i++){
                 Position position = new Position(layer,i);
                 layeredPane.add(position,2);
 

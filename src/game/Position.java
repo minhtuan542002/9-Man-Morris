@@ -5,10 +5,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The class implementing the positions inside the board and define the mouse area to click on
+ */
 public class Position extends JButton {
-    private int layer; // refers to square layer piece is on (3 layers)
-    private int positionNumber; // refers to position on square (8 positions, counting clock-wise from top left)
+    /**
+     * refers to square layer piece is on (3 layers)
+     */
+    private int layer;
+    /**
+     * refers to position on square (8 positions, counting clock-wise from top left)
+     */
+    private int positionNumber;
 
+    /**
+     * Constructor method for position
+     * @param layer The square layer the piece is on
+     * @param positionNumber The position number of the position inside the square
+     */
     Position(int layer, int positionNumber){
         this.layer = layer;
         this.positionNumber = positionNumber;
@@ -20,22 +34,42 @@ public class Position extends JButton {
 
     }
 
+    /**
+     * Change layer information
+     * @param layer New layer
+     */
     public void setLayer(int layer){
         this.layer = layer;
     }
 
+    /**
+     * Change position number information
+     * @param positionNumber New position number
+     */
     public void setPositionNumber(int positionNumber){
         this.positionNumber = positionNumber;
     }
 
+    /**
+     * Get the layer number of the position
+     * @return The layer number
+     */
     public int getLayer(){
         return this.layer;
     }
 
+    /**
+     * Get the position number of the position
+     * @return The position number inside the layer
+     */
     public int getPositionNumber(){
         return this.positionNumber;
     }
 
+    /**
+     * Get the positions adjacent to this position
+     * @return An array list of nearby position
+     */
     public List<Position> getAdjacentPositions(){
         List<Position> adjacentPositions = new ArrayList<>();
 

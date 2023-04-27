@@ -7,6 +7,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Outdated class, not in use
+ */
 public class StartPanel extends JPanel{
     // Tile
     final int originalTileSize = 16; // Tile size

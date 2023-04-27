@@ -66,7 +66,7 @@ public class Game implements ActionListener {
     private Move currentMove =null;
 
     /**
-     * Constructor class for Game, which create the obeject instance and create new game resources
+     * Constructor method for Game, which create the obeject instance and create new game resources
      */
     public Game(){
         board = new Board();

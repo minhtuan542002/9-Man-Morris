@@ -11,17 +11,42 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The class representing pieces in the 9 Man's Morris game
+ */
 public class Piece extends JLabel implements State{
+    /**
+     * The colour of the piece. True if red and false if blue
+     */
     private boolean isRed;
+    /**
+     * The set of piece's statuses
+     */
     private final StatusSet statusSet = new StatusSet();
 
+    /**
+     * The size of piece displayed on the board
+     */
     private int tileSize;
 
+    /**
+     * The Jlabel containing the piece's image
+     */
     public JLabel pieceImage;
-
+    /**
+     * Corresponding position of the piece. Can be null when it is not on the board
+     */
     private Position currentPosition;
+    /**
+     * Image of the piece in BufferedImage format
+     */
     public BufferedImage tokenPiece;
 
+    /**
+     * Constructor method for piece
+     * @param position
+     * @param status
+     */
     public Piece(Position position, Status status){
         tileSize =70;
         setSize(tileSize,tileSize);
