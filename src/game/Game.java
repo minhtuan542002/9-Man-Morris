@@ -87,7 +87,6 @@ public class Game implements ActionListener {
                 else piece =blue_piece_panel.useOnePiece();
                 piece.setCurrentPosition(entry.getValue());
                 board.addPieceAt(piece, entry.getValue());
-
                 toggleTurn();
             }
         }

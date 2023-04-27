@@ -1,12 +1,11 @@
 package Action;
 
-import game.Board;
 import Piece.Piece;
+import game.Board;
 
-public class MovePieceAction extends Action {
+public class RemovePieceAction extends Action{
     @Override
     public String execute(Piece piece, Board board) {
         return null;
     }
-
 }
