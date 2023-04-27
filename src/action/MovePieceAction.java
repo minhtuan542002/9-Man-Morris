@@ -1,7 +1,7 @@
 package action;
 
 import game.Board;
-import Piece.Piece;
+import piece.Piece;
 import game.Position;
 
 public class MovePieceAction implements Action {

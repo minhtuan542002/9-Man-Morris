@@ -1,5 +1,5 @@
-package Piece;
-import Status.Status;
+package piece;
+import status.Status;
 
 import javax.swing.*;
 import java.awt.*;

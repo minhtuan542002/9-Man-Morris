@@ -1,6 +1,6 @@
-package Player;
+package player;
 
-import Status.Status;
+import status.Status;
 
 public class Player_1 extends Player{
     public Player_1(String name) {

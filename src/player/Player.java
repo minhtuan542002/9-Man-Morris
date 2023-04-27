@@ -1,10 +1,8 @@
-package Player;
+package player;
 
-import Status.State;
-import Status.StatusSet;
+import status.State;
+import status.StatusSet;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
 public abstract class Player implements State {

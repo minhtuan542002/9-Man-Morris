@@ -1,7 +1,7 @@
 package action;
 
-import Piece.Piece;
-import Status.Status;
+import piece.Piece;
+import status.Status;
 import game.Board;
 import game.Position;
 

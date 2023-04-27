@@ -1,6 +1,6 @@
 package action;
 
-import Piece.Piece;
+import piece.Piece;
 import game.Board;
 import game.Position;
 

@@ -1,7 +1,7 @@
 package game;
-import Piece.*;
-import Player.*;
-import Status.Status;
+import piece.*;
+import player.*;
+import status.Status;
 
 import javax.swing.*;
 import java.awt.*;
