@@ -1,16 +1,21 @@
-package game;
+package Piece;
+import Status.*;
+import game.GamePanel;
+import game.Position;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+import java.util.List;
 
 public class Piece extends JButton {
     int xp;
     int yp;
     boolean isRed;
+    private final StatusSet statusSet = new StatusSet();
 
     int tileSize;
 
@@ -20,10 +25,11 @@ public class Piece extends JButton {
     GamePanel gp;
     public BufferedImage tokenPiece;
 
-    public Piece(Position position, PieceColour pieceColour){
+    public Piece(Position position, Status status){
         tileSize =70;
         setSize(tileSize,tileSize);
-        this.isRed = pieceColour == PieceColour.RED;
+        this.isRed = status == Status.RED;
+        statusSet.addStatus(Status.OUTSIDE_MILL);
         //setBackground(Color.PINK);
         setOpaque(false);
         getPieceImage();
@@ -32,10 +38,12 @@ public class Piece extends JButton {
     public void getPieceImage() {
         try {
             if(this.isRed){
+                statusSet.addStatus(Status.RED);
                 tokenPiece = ImageIO.read(new File("src/image/red_token.png"));
                 pieceImage = new JLabel(new ImageIcon("src/image/red_token.png"));
             }
             else{
+                statusSet.addStatus(Status.BLUE);
                 tokenPiece = ImageIO.read(new File("src/image/blue_token.png"));
                 pieceImage = new JLabel(new ImageIcon("src/image/blue_token.png"));
             }
@@ -55,4 +63,17 @@ public class Piece extends JButton {
         BufferedImage image = tokenPiece;
         g.drawImage(image, x_position, y_position, tileSize, tileSize, null);
     }
+
+    public boolean hasStatus(Enum<?> status) {
+        return statusSet.hasStatus(status);
+    }
+
+    public void addStatus(Enum<?> status) {
+        statusSet.addStatus(status);
+    }
+
+    public List<Enum<?>> statusList() {
+        return statusSet.statusList();
+    }
+
 }

@@ -1,14 +1,15 @@
-package game;
+package Piece;
+import Status.Status;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class PieceSet extends JPanel {
     List<Piece> pieceSet = new ArrayList<>();
 
-    PieceSet(PieceColour pieceColour){
+    public PieceSet(Status pieceColour){
         for (int i = 0; i < 9; i++) {
             Piece piece = new Piece(null, pieceColour);
             this.pieceSet.add(piece);

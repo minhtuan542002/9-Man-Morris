@@ -1,5 +1,7 @@
 package game;
+import Piece.*;
 import Player.*;
+import Status.Status;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,9 +13,8 @@ public class Game implements ActionListener {
     private JFrame frame = null;
     private Board board =null;
     private Display display =null;
-
-    private Player_1 player1 = null;
-    private Player_2 player2 = null;
+    private Player_1 player1;
+    private Player_2 player2;
 
     private boolean running =false;
 
@@ -35,9 +36,9 @@ public class Game implements ActionListener {
         frame.setTitle("Nine Man's Morris");
         frame.setBackground(Color.WHITE);
 
-        red_piece_panel= new PieceSet(PieceColour.RED);
+        red_piece_panel= new PieceSet(Status.RED);
 
-        blue_piece_panel= new PieceSet(PieceColour.BLUE);
+        blue_piece_panel= new PieceSet(Status.BLUE);
 
 
         display.init();

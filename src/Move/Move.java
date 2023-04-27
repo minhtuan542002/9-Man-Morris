@@ -1,7 +1,7 @@
 package Move;
 
 
-import game.Piece;
+import Piece.Piece;
 import game.Position;
 import game.Board;
 

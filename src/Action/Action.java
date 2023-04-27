@@ -1,7 +1,7 @@
 package Action;
 
 import game.Board;
-import game.Piece;
+import Piece.Piece;
 
 public abstract class Action {
     public abstract String execute(Piece piece, Board board);

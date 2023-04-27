@@ -2,7 +2,7 @@ package Action;
 
 import Move.Move;
 import game.Board;
-import game.Piece;
+import Piece.Piece;
 import game.Position;
 
 public class MovePieceAction extends Action implements Move {

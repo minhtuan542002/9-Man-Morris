@@ -1,4 +1,7 @@
 package game;
+import Piece.PieceSet;
+import Status.Status;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,7 +19,7 @@ public class GamePanel extends JPanel implements Runnable{
     final int screenHeight = tileSize * maxScreenRow;
 
     Thread gameThread;
-    PieceSet pieceSet = new PieceSet(PieceColour.BLUE);
+    PieceSet pieceSet = new PieceSet(Status.BLUE);
 
     public GamePanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
