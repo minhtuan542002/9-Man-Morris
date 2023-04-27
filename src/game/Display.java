@@ -30,8 +30,5 @@ public class Display extends JPanel{
 
     }
 
-    public void update() {
-        // DRAW:
-        repaint();
-    }
+
 }

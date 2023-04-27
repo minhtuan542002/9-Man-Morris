@@ -1,6 +1,5 @@
 package Piece;
 import Status.*;
-import game.GamePanel;
 import game.Position;
 
 import javax.imageio.ImageIO;
@@ -22,7 +21,6 @@ public class Piece extends JButton {
     public JLabel pieceImage;
 
     Position currentPosition;
-    GamePanel gp;
     public BufferedImage tokenPiece;
 
     public Piece(Position position, Status status){
