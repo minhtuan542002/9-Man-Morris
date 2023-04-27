@@ -112,7 +112,6 @@ public  class Board extends JPanel {
             throw new RuntimeException("Piece do ot have position");
         }
         mapping.remove(piece.getCurrentPosition(), piece);
-        piece.setCurrentPosition(null);
     }
 
 

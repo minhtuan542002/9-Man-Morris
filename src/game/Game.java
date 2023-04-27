@@ -90,9 +90,10 @@ public class Game implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         for(Map.Entry<Point, Position> entry : board.positions.entrySet()){
             if(entry.getValue()==e.getSource()){
+                Piece piece;
                 //System.out.println(entry.getKey());
                 if (gamePhase == Status.PHASE_1) {
-                    Piece piece;
+
                     if (isRedTurn) {
                         piece = red_piece_panel.useOnePiece();
                     } else piece = blue_piece_panel.useOnePiece();
@@ -122,10 +123,19 @@ public class Game implements ActionListener {
                         action.execute(targetPiece,board,entry.getValue());
                     }
                 */
-                    if(currentMove==null){
-                        currentMove =new MovePieceMove();
+                    piece = board.getPiece(entry.getValue());
+                    if(board.hasPieceAt(entry.getValue())) {
+                        if (currentMove == null) {
+                            currentMove = new MovePieceMove(piece);
+                        }
                     }
-                    else currentMove.execute(board.getPiece(entry.getValue()), board, entry.getValue());
+                    else {
+                        if (currentMove != null) {
+                            currentMove.execute(piece, board, entry.getValue());
+                            currentMove =null;
+                        }
+                    }
+
                     if (board.getNumberOfBluePieces() == 3){
                         player2.addStatus(Status.ACTIVE_FLY);
                         gamePhase = Status.PHASE_3;

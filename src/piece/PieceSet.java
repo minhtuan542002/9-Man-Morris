@@ -24,7 +24,7 @@ public class PieceSet extends JPanel {
         if (pieceSet != null){
             for(int i =0; i< pieceSet.size(); i++){
                 Piece piece =pieceSet.get(i);
-                piece.draw(g, 0, i*piece.tileSize);
+                piece.draw(g, 0, i*70);
             }
         }
     }
