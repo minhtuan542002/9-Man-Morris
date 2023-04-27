@@ -12,16 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Piece extends JLabel implements State{
-    int xp;
-    int yp;
-    boolean isRed;
+    private boolean isRed;
     private final StatusSet statusSet = new StatusSet();
 
-    int tileSize;
+    private int tileSize;
 
     public JLabel pieceImage;
 
-    Position currentPosition;
+    private Position currentPosition;
     public BufferedImage tokenPiece;
 
     public Piece(Position position, Status status){
