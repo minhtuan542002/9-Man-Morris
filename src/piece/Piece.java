@@ -32,7 +32,7 @@ public class Piece extends JLabel implements State{
         getPieceImage();
 
     }
-    public void getPieceImage() {
+    private void getPieceImage() {
         try {
             if(this.isRed){
                 statusSet.addStatus(Status.RED);
