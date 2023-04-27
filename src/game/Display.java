@@ -2,13 +2,25 @@ package game;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The display to generate the Graphic user interface of the program
+ */
 public class Display extends JPanel{
 
+    /**
+     * The text title of the program
+     */
     private JPanel text_panel =null;
 
+    /**
+     * Text field inside the text title
+     */
     private JLabel text_field = null;
     //public Display()
 
+    /**
+     * Initiate settings and visual configurations for the game
+     */
     public void init(){
         setLayout(new BorderLayout());
 

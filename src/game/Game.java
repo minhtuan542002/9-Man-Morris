@@ -10,24 +10,64 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Map;
 
+/**
+ * The class used to process and run all aspects of the game
+ */
 public class Game implements ActionListener {
+    /**
+     * The frame used to display the game
+     */
     private JFrame frame = null;
+    /**
+     * Game's board class object
+     */
     private Board board =null;
+    /**
+     * The display that will provide the game with graphic interaction
+     */
     private Display display =null;
+    /**
+     * First player (red)
+     */
     private Player player1;
+    /**
+     * second player (blue)
+     */
     private Player player2;
 
+    /**
+     * The state of the game. True if the game is running, false otherwise.
+     */
     private boolean running =false;
 
+    /**
+     * The red player's turn
+     */
     private Boolean isRedTurn =true;
+    /**
+     * The Piece set containing all red pieces outside the board but not removed from the game
+     */
     private PieceSet red_piece_panel =null;
-    private Status gamePhase;
-    private Piece targetPiece = null;
 
+    /**Current phrase of the game
+     *
+     */
+    private Status gamePhase;
+
+
+    /**
+     * The Piece set containing all blue pieces outside the board but not removed from the game
+     */
     private PieceSet blue_piece_panel = null;
 
+    /**
+     * The current Move to be processed
+     */
     private Move currentMove =null;
 
+    /**
+     * Constructor class for Game, which create the obeject instance and create new game resources
+     */
     public Game(){
         board = new Board();
         display = new Display();
@@ -35,6 +75,10 @@ public class Game implements ActionListener {
         player2 = new Player("Player 2");
         gamePhase = Status.PHASE_1;
     }
+
+    /**
+     * Set up the game resources for the game start
+     */
     public void init(){
         board.init(this);
         frame = new JFrame();
@@ -67,10 +111,17 @@ public class Game implements ActionListener {
 
         //display.setGameThread();
     }
+
+    /**
+     * Update the game states and resources
+     */
     public void update(){
 
     }
 
+    /**
+     * The main game loop
+     */
     public void run(){
         init();
         running=true;
@@ -82,10 +133,17 @@ public class Game implements ActionListener {
         frame.dispose();
     }
 
+    /**
+     * Change current turn
+     */
     private void toggleTurn(){
         isRedTurn= !isRedTurn;
     }
 
+    /**
+     * Process the newest event based on the interaction of the users toward the interface
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         for(Map.Entry<Point, Position> entry : board.positions.entrySet()){
@@ -107,7 +165,7 @@ public class Game implements ActionListener {
                     }
                 }
                 else if (gamePhase == Status.PHASE_2){
-                    /**
+                    /*
                     System.out.println("Phase 2 starts");
                     System.out.println(entry.getValue().getLayer());
                     System.out.println(entry.getValue().getPositionNumber());
@@ -122,7 +180,7 @@ public class Game implements ActionListener {
                         Action action = new RemovePieceAction();
                         action.execute(targetPiece,board,entry.getValue());
                     }
-                */
+                    */
                     piece = board.getPiece(entry.getValue());
                     if(board.hasPieceAt(entry.getValue())) {
                         currentMove = new MovePieceMove(piece);

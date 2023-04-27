@@ -12,6 +12,7 @@ import static java.lang.Math.round;
 
 /**
  * The class that logically and visually implement 9 Man's Morris game board
+ *
  */
 public  class Board extends JPanel {
     /**
