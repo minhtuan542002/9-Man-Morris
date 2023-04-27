@@ -25,6 +25,7 @@ public class Piece extends JButton {
         setSize(tileSize,tileSize);
         this.isRed = pieceColour == PieceColour.RED;
         //setBackground(Color.PINK);
+        setOpaque(false);
         getPieceImage();
 
     }

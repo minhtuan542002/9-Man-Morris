@@ -16,7 +16,7 @@ public class Position extends JButton {
         this.layer = layer;
         this.positionNumber = positionNumber;
         setSize(new Dimension(70, 70));
-        setBackground(Color.BLUE);
+        setOpaque(false);
     }
 
     private void calculate_coordinate(){
