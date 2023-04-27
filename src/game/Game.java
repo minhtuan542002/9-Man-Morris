@@ -65,6 +65,10 @@ public class Game implements ActionListener {
         frame.dispose();
     }
 
+    private void toggleTurn(){
+        isRedTurn=!isRedTurn;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         for(Map.Entry<Point, Position> entry : board.positions.entrySet()){
@@ -77,6 +81,8 @@ public class Game implements ActionListener {
                 else piece =blue_piece_panel.useOnePiece();
                 piece.setCurrentPosition(entry.getValue());
                 board.addPieceAt(piece, entry.getValue());
+
+                toggleTurn();
             }
         }
     }
