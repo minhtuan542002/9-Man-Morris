@@ -98,8 +98,8 @@ public class Game implements ActionListener {
                 }
                 else if (gamePhase == Status.PHASE_2){
                     System.out.println("Phase 2 starts");
-                    System.out.println(entry.getValue().layer);
-                    System.out.println(entry.getValue().positionNumber);
+                    System.out.println(entry.getValue().getLayer());
+                    System.out.println(entry.getValue().getPositionNumber());
                     System.out.println(entry.getValue().getLocation());
                     System.out.println(board.getPiece(entry.getValue()).getLocation());
                     System.out.println(board.getPiece(entry.getValue()).getCurrentPosition().getLocation());
