@@ -1,12 +1,15 @@
 package Player;
 
+import Status.StatusSet;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public abstract class Player implements ActionListener {
 
     private String name;
-    private PlayerType playerType;
+    private final StatusSet statusSet = new StatusSet();
 
     public Player(String name) {
 
@@ -26,13 +29,20 @@ public abstract class Player implements ActionListener {
         this.name = name;
     }
 
-
-    public PlayerType getPlayerType() {
-        return playerType;
+    public boolean hasStatus(Enum<?> status) {
+        return statusSet.hasStatus(status);
     }
 
-    public void setPlayerType(PlayerType playerType) {
-        this.playerType = playerType;
+    public void addStatus(Enum<?> status) {
+        statusSet.addStatus(status);
+    }
+
+    public void removeStatus(Enum<?> status) {
+        statusSet.removeStatus(status);
+    }
+
+    public List<Enum<?>> statusList() {
+        return statusSet.statusList();
     }
 
     @Override
