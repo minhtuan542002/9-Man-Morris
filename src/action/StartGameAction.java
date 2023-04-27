@@ -1,6 +1,6 @@
 package action;
 
-public class StartGameAction {
+public class StartGameAction extends Action{
 
     /**
      * Create new board, players, and pieces.
