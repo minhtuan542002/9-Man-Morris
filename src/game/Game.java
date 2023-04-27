@@ -2,8 +2,7 @@ package game;
 import Piece.*;
 import Player.*;
 import Status.Status;
-import Action.Action;
-import Action.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -81,7 +80,6 @@ public class Game implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         for(Map.Entry<Point, Position> entry : board.positions.entrySet()){
-            System.out.println(e.getSource());
             if(entry.getValue()==e.getSource()){
                 //System.out.println(entry.getKey());
                 if (gamePhase == Status.PHASE_1) {
@@ -95,6 +93,7 @@ public class Game implements ActionListener {
                     toggleTurn();
                     if (red_piece_panel.getPieceSetSize() == 0 && blue_piece_panel.getPieceSetSize() == 0) {
                         gamePhase = Status.PHASE_2;
+                        System.out.println(board.positions);
                     }
                 }
                 else if (gamePhase == Status.PHASE_2){

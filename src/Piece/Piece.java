@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Piece extends JButton{
+public class Piece extends JButton implements State{
     int xp;
     int yp;
     boolean isRed;
@@ -74,16 +74,20 @@ public class Piece extends JButton{
         return temp;
     }
 
+    @Override
     public boolean hasStatus(Enum<?> status) {
         return statusSet.hasStatus(status);
     }
 
+    @Override
     public void addStatus(Enum<?> status) {
         statusSet.addStatus(status);
     }
+    @Override
     public void removeStatus(Enum<?> status) {
         statusSet.removeStatus(status);
     }
+    @Override
     public List<Enum<?>> statusList() {
         return statusSet.statusList();
     }

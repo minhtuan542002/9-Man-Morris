@@ -7,7 +7,7 @@ import game.Position;
 
 import java.awt.*;
 
-public class RemovePieceAction extends Action{
+public class RemovePieceAction implements Action{
     @Override
     public String execute(Piece piece, Board board, Position position) {
         String result = "";

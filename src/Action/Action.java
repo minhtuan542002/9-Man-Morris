@@ -1,13 +1,13 @@
 package Action;
 
-import game.Board;
 import Piece.Piece;
+import game.Board;
 import game.Position;
 
-public abstract class Action {
-    public abstract String execute(Piece piece, Board board, Position position);
+public interface Action {
+    public String execute(Piece piece, Board board, Position position);
     /**
-     * Perform the Action.
+     * Action Execution method
      *
      * @param piece The piece performing the action.
      * @param board The game board piece is on.
