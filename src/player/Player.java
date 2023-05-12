@@ -3,6 +3,8 @@ package player;
 import status.State;
 import status.StatusSet;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 /**
  * Player object class
@@ -10,7 +12,7 @@ import java.util.List;
  * @author Thanh Nguyen
  * Modified by: 
  * */
-public class Player implements State {
+public class Player implements State, ActionListener {
 
     private String name;
     private final StatusSet statusSet = new StatusSet();
@@ -88,4 +90,8 @@ public class Player implements State {
         return statusSet.statusList();
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }

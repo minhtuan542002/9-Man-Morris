@@ -1,6 +1,7 @@
 package game;
 
 import piece.Piece;
+import player.Player;
 import status.*;
 
 import javax.swing.*;
@@ -131,6 +132,13 @@ public  class Board extends JPanel {
         //System.out.println(getPositions());
     }
 
+    /*
+    private void addControl(Player player){
+        for(Map.Entry<Point, Position> entry : positions.entrySet()){
+            entry.getValue().addActionListener(player);
+        }
+    }
+    */
 
     /**
      * Get all the positions in the board
