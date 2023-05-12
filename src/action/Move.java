@@ -10,7 +10,6 @@ import game.Position;
  * Modified by: 
  * */
 public interface Move {
-    public String execute(Piece piece, Board board, Position position);
     /**
      * Action Execution method
      *
@@ -18,4 +17,7 @@ public interface Move {
      * @param board The game board piece is on.
      * @return a description of what happened that can be displayed to the user. (For keeping track of action)
      */
+    public String execute(Piece piece, Board board, Position position);
+
+    public Piece getPiece();
 }

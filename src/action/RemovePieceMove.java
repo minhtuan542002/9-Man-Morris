@@ -24,4 +24,9 @@ public class RemovePieceMove implements Move {
         }
         return result;
     }
+
+    @Override
+    public Piece getPiece() {
+        return null;
+    }
 }

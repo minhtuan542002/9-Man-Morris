@@ -14,4 +14,9 @@ public class SetPieceMove implements Move{
     public String execute(Piece piece, Board board, Position position) {
         return null;
     }
+
+    @Override
+    public Piece getPiece() {
+        return null;
+    }
 }

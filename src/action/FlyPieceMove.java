@@ -19,4 +19,9 @@ public class FlyPieceMove implements Move {
 
         return null;
     }
+
+    @Override
+    public Piece getPiece() {
+        return null;
+    }
 }

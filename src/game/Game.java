@@ -165,35 +165,34 @@ public class Game implements ActionListener {
                     }
                 }
                 else if (gamePhase == Status.PHASE_2){
-                    /*
-                    System.out.println("Phase 2 starts");
-                    System.out.println(entry.getValue().getLayer());
-                    System.out.println(entry.getValue().getPositionNumber());
-                    System.out.println(entry.getValue().getLocation());
-                    System.out.println(board.getPiece(entry.getValue()).getLocation());
-                    System.out.println(board.getPiece(entry.getValue()).getCurrentPosition().getLocation());
-                    //targetPiece = board.getPiece(entry.getValue());
-                    if (isRedTurn){
-                        Action action = new RemovePieceAction();
-                        action.execute(targetPiece,board,entry.getValue());
-                    }else {
-                        Action action = new RemovePieceAction();
-                        action.execute(targetPiece,board,entry.getValue());
-                    }
-                    */
 
-                    if(piece!=null) {
+                    System.out.println("Phase 2 starts");
+                    System.out.print(entry.getValue().getLayer());
+                    System.out.print(' ');
+                    System.out.println(entry.getValue().getPositionNumber());
+                    //System.out.println(entry.getValue().getLocation());
+
+                    //System.out.println(board.getPiece(entry.getValue()).getCurrentPosition().getLocation());
+                    //targetPiece = board.getPiece(entry.getValue());
+                    if(currentMove!=null){
+                        piece=currentMove.getPiece();
+                    }
+
+                    if(board.hasPieceAt(entry.getValue())) {
                         piece = board.getPiece(entry.getValue());
                         currentMove = new MovePieceMove(piece);
+                        System.out.println("New");
 
                     }
                     else {
                         if (currentMove != null && piece.getCurrentPosition().getAdjacentPositions(board).contains(entry.getValue())) {
                             currentMove.execute(piece, board, entry.getValue());
                             currentMove =null;
+                            System.out.println("Empty");
                         }
                     }
 
+                    if(piece!=null)System.out.println(piece);
                     if (board.getNumberOfBluePieces() == 3){
                         player2.addStatus(Status.ACTIVE_FLY);
                         gamePhase = Status.PHASE_3;

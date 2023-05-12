@@ -95,7 +95,7 @@ public class Position extends JButton {
                     adjacentPositions.add(allPositions.get(new Point(layer-1, positionNumber)));
                 }
                 if (this.layer == 2) {
-                    adjacentPositions.add(allPositions.get(new Point(layer+1, positionNumber)));
+                    adjacentPositions.add(allPositions.get(new Point(layer-1, positionNumber)));
                 }
             }
         }
