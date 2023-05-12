@@ -16,11 +16,13 @@ public class MovePieceMove implements Move {
     }
     @Override
     public String execute(Piece piece, Board board, Position position) {
-
-        this.piece.setCurrentPosition(position);
-        board.addPieceAt(this.piece, position);
-        board.removePiece(this.piece);
-        return null;
+        if(piece.getCurrentPosition().getAdjacentPositions(board).contains(position)) {
+            this.piece.setCurrentPosition(position);
+            board.addPieceAt(this.piece, position);
+            board.removePiece(this.piece);
+            return null;
+        }
+        else
     }
 
 }

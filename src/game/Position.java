@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The class implementing the positions inside the board and define the mouse area to click on
@@ -70,30 +71,31 @@ public class Position extends JButton {
      * Get the positions adjacent to this position
      * @return An array list of nearby position
      */
-    public List<Position> getAdjacentPositions(){
+    public List<Position> getAdjacentPositions(Board board){
         List<Position> adjacentPositions = new ArrayList<>();
+        Map<Point, Position> allPositions = board.getPositions();
 
         if (this.positionNumber == 0) {
-            adjacentPositions.add(new Position(this.layer, this.positionNumber+1));
-            adjacentPositions.add(new Position(this.layer, 7));
+            adjacentPositions.add(allPositions.get(new Point(layer, positionNumber+1)));
+            adjacentPositions.add(allPositions.get(new Point(layer, 7)));
         }
         else if (this.positionNumber == 7){
-            adjacentPositions.add(new Position(this.layer, this.positionNumber-1));
-            adjacentPositions.add(new Position(this.layer, 0));
+            adjacentPositions.add(allPositions.get(new Point(layer, positionNumber-1)));
+            adjacentPositions.add(allPositions.get(new Point(layer, 0)));
         }
         else{
-            adjacentPositions.add(new Position(this.layer, this.positionNumber+1));
-            adjacentPositions.add(new Position(this.layer, this.positionNumber-1));
+            adjacentPositions.add(allPositions.get(new Point(layer, positionNumber+1)));
+            adjacentPositions.add(allPositions.get(new Point(layer, positionNumber-1)));
             if (this.positionNumber % 2 != 0) {
                 if (this.layer == 0) {
-                    adjacentPositions.add(new Position(this.layer+1, this.positionNumber));
+                    adjacentPositions.add(allPositions.get(new Point(layer+1, positionNumber)));
                 }
                 if (this.layer == 1) {
-                    adjacentPositions.add(new Position(this.layer+1, this.positionNumber));
-                    adjacentPositions.add(new Position(this.layer-1, this.positionNumber));
+                    adjacentPositions.add(allPositions.get(new Point(layer+1, positionNumber)));
+                    adjacentPositions.add(allPositions.get(new Point(layer-1, positionNumber)));
                 }
                 if (this.layer == 2) {
-                    adjacentPositions.add(new Position(this.layer-1, this.positionNumber));
+                    adjacentPositions.add(allPositions.get(new Point(layer+1, positionNumber)));
                 }
             }
         }

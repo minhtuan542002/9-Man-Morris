@@ -50,6 +50,7 @@ public class Piece extends JLabel implements State{
     public Piece(Position position, Status status){
         tileSize =70;
         setSize(tileSize,tileSize);
+        currentPosition=position;
         this.isRed = status == Status.RED;
         statusSet.addStatus(Status.OUTSIDE_MILL);
         //setBackground(Color.PINK);

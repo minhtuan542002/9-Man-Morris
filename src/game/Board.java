@@ -176,7 +176,7 @@ public  class Board extends JPanel {
     public void addPieceAt(Piece piece, Position position){
         mapping.put(position, piece);
         //positionButtons.remove(position);
-        piece.setCurrentPosition(position);
+        //piece.setCurrentPosition(position);
         layeredPane.add(piece,1);
         layeredPane.add(piece.pieceImage, 0);
         piece.setBounds(position.getBounds());
