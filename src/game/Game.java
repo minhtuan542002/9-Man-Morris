@@ -152,21 +152,23 @@ public class Game implements ActionListener {
                 //System.out.println(entry.getKey());
                 if (gamePhase == Status.PHASE_1) {
 
-                    if (isRedTurn) {
-                        piece = red_piece_panel.useOnePiece();
-                    } else piece = blue_piece_panel.useOnePiece();
-                    piece.setCurrentPosition(entry.getValue());
-                    board.addPieceAt(piece, entry.getValue());
+                    if(!board.hasPieceAt(entry.getValue())) {
+                        if (isRedTurn) {
+                            piece = red_piece_panel.useOnePiece();
+                        } else piece = blue_piece_panel.useOnePiece();
+                        piece.setCurrentPosition(entry.getValue());
+                        board.addPieceAt(piece, entry.getValue());
 
-                    toggleTurn();
-                    if (red_piece_panel.getPieceSetSize() == 0 && blue_piece_panel.getPieceSetSize() == 0) {
-                        gamePhase = Status.PHASE_2;
-                        System.out.println(board.positions);
+                        toggleTurn();
+                        if (red_piece_panel.getPieceSetSize() == 0 && blue_piece_panel.getPieceSetSize() == 0) {
+                            gamePhase = Status.PHASE_2;
+                            System.out.println("Phase 2 starts");
+                        }
                     }
                 }
                 else if (gamePhase == Status.PHASE_2){
 
-                    System.out.println("Phase 2 starts");
+
                     System.out.print(entry.getValue().getLayer());
                     System.out.print(' ');
                     System.out.println(entry.getValue().getPositionNumber());
@@ -180,14 +182,17 @@ public class Game implements ActionListener {
 
                     if(board.hasPieceAt(entry.getValue())) {
                         piece = board.getPiece(entry.getValue());
-                        currentMove = new MovePieceMove(piece);
-                        System.out.println("New");
+                        if(piece.isRed==isRedTurn) {
+                            currentMove = new MovePieceMove(piece);
+                            System.out.println("New");
+                        }
 
                     }
                     else {
                         if (currentMove != null && piece.getCurrentPosition().getAdjacentPositions(board).contains(entry.getValue())) {
                             currentMove.execute(piece, board, entry.getValue());
                             currentMove =null;
+                            toggleTurn();
                             System.out.println("Empty");
                         }
                     }

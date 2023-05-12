@@ -18,7 +18,7 @@ public class Piece extends JLabel implements State{
     /**
      * The colour of the piece. True if red and false if blue
      */
-    private boolean isRed;
+    public boolean isRed;
     /**
      * The set of piece's statuses
      */
