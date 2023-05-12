@@ -22,7 +22,7 @@ public class MovePieceMove implements Move {
             board.removePiece(this.piece);
             return null;
         }
-        else
+        else return  null;
     }
 
 }

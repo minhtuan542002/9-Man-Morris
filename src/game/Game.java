@@ -148,7 +148,7 @@ public class Game implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         for(Map.Entry<Point, Position> entry : board.positions.entrySet()){
             if(entry.getValue()==e.getSource()){
-                Piece piece;
+                Piece piece = null;
                 //System.out.println(entry.getKey());
                 if (gamePhase == Status.PHASE_1) {
 
@@ -181,13 +181,14 @@ public class Game implements ActionListener {
                         action.execute(targetPiece,board,entry.getValue());
                     }
                     */
-                    piece = board.getPiece(entry.getValue());
-                    if(board.hasPieceAt(entry.getValue())) {
+
+                    if(piece!=null) {
+                        piece = board.getPiece(entry.getValue());
                         currentMove = new MovePieceMove(piece);
 
                     }
                     else {
-                        if (currentMove != null) {
+                        if (currentMove != null && piece.getCurrentPosition().getAdjacentPositions(board).contains(entry.getValue())) {
                             currentMove.execute(piece, board, entry.getValue());
                             currentMove =null;
                         }
