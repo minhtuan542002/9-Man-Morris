@@ -6,6 +6,7 @@ import status.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,9 +80,8 @@ public  class Board extends JPanel {
 
     /**
      * Initiate board to be ready to start the game
-     * @param game The game instance that will be running the board
      */
-    public void init(Game game){
+    public void init(){
         layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(800, 800));
         layeredPane.setBorder(BorderFactory.createEmptyBorder());
@@ -122,7 +122,7 @@ public  class Board extends JPanel {
                         position.setBounds(cor_layer, round((BOARD_LENGTH-BUTTON_SIZE)/2), BUTTON_SIZE, BUTTON_SIZE);
                         break;
                 }
-                position.addActionListener(game);
+
                 positions.put(new Point(layer, i), position);
             }
         }
@@ -132,13 +132,16 @@ public  class Board extends JPanel {
         //System.out.println(getPositions());
     }
 
-    /*
-    private void addControl(Player player){
+
+    public void updatePlayer(Player player){
         for(Map.Entry<Point, Position> entry : positions.entrySet()){
+            for( ActionListener al : entry.getValue().getActionListeners() ) {
+                entry.getValue().removeActionListener( al );
+            }
             entry.getValue().addActionListener(player);
         }
     }
-    */
+
 
     /**
      * Get all the positions in the board

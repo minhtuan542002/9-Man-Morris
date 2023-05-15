@@ -20,7 +20,7 @@ public class MovePieceMove implements Move {
             board.removePiece(this.piece);
             this.piece.setCurrentPosition(position);
             board.addPieceAt(this.piece, position);
-
+            System.out.println("Executed");
         }
         return null;
     }

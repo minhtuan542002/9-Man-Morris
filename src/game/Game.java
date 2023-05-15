@@ -1,19 +1,16 @@
 package game;
 import action.Move;
-import action.MovePieceMove;
 import piece.*;
 import player.*;
 import status.Status;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.Map;
 
 /**
  * The class used to process and run all aspects of the game
  */
-public class Game implements ActionListener {
+public class Game {
     /**
      * The frame used to display the game
      */
@@ -21,11 +18,11 @@ public class Game implements ActionListener {
     /**
      * Game's board class object
      */
-    private Board board =null;
+    private Board board = null;
     /**
      * The display that will provide the game with graphic interaction
      */
-    private Display display =null;
+    private Display display = null;
     /**
      * First player (red)
      */
@@ -38,21 +35,21 @@ public class Game implements ActionListener {
     /**
      * The state of the game. True if the game is running, false otherwise.
      */
-    private boolean running =false;
+    private boolean running = false;
 
     /**
      * The red player's turn
      */
-    private Boolean isRedTurn =true;
+    private Boolean isRedTurn = true;
     /**
      * The Piece set containing all red pieces outside the board but not removed from the game
      */
-    private PieceSet red_piece_panel =null;
+    private PieceSet red_piece_panel = null;
 
-    /**Current phrase of the game
-     *
+    /**
+     * Current phrase of the game
      */
-    private Status gamePhase;
+    //private Status gamePhase;
 
 
     /**
@@ -63,38 +60,41 @@ public class Game implements ActionListener {
     /**
      * The current Move to be processed
      */
-    private Move currentMove =null;
+    //private Move currentMove = null;
 
     /**
      * Constructor method for Game, which create the obeject instance and create new game resources
      */
-    public Game(){
+    public Game() {
         board = new Board();
         display = new Display();
-        player1 = new Player("Player 1");
-        player2 = new Player("Player 2");
-        gamePhase = Status.PHASE_1;
+
+        //gamePhase = Status.PHASE_1;
     }
 
     /**
      * Set up the game resources for the game start
      */
-    public void init(){
-        board.init(this);
+    public void init() {
+        board.init();
+        board.updatePlayer(player1);
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setTitle("Nine Man's Morris");
         frame.setBackground(Color.WHITE);
 
-        red_piece_panel= new PieceSet(Status.RED);
+        red_piece_panel = new PieceSet(Status.RED);
 
-        blue_piece_panel= new PieceSet(Status.BLUE);
+        blue_piece_panel = new PieceSet(Status.BLUE);
+        player1 = new Player("Red Player", board, red_piece_panel);
+        player2 = new Player("Blue Player", board, blue_piece_panel);
+        player1.newTurn();
 
 
         display.init();
         frame.add(display);
-        JPanel container =new JPanel();
+        JPanel container = new JPanel();
 
         container.add(red_piece_panel);
         container.add(board);
@@ -115,17 +115,28 @@ public class Game implements ActionListener {
     /**
      * Update the game states and resources
      */
-    public void update(){
-
+    public void update() {
+        if(isRedTurn){
+            if(player1.finishedTurn()){
+                toggleTurn();
+                player2.newTurn();
+            }
+        }
+        else {
+            if(player2.finishedTurn()){
+                toggleTurn();
+                player1.newTurn();
+            }
+        }
     }
 
     /**
      * The main game loop
      */
-    public void run(){
+    public void run() {
         init();
-        running=true;
-        while (running){
+        running = true;
+        while (running) {
             //System.out.println("Game loop is running");
             update();
             display.repaint();
@@ -136,85 +147,14 @@ public class Game implements ActionListener {
     /**
      * Change current turn
      */
-    private void toggleTurn(){
-        isRedTurn= !isRedTurn;
+    private void toggleTurn() {
+        isRedTurn = !isRedTurn;
+    }
+    /*
+    public Status getGamePhase() {
+        return gamePhase;
     }
 
-    /**
-     * Process the newest event based on the interaction of the users toward the interface
-     * @param e the event to be processed
-     */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        for(Map.Entry<Point, Position> entry : board.positions.entrySet()){
-            if(entry.getValue()==e.getSource()){
-                Piece piece = null;
-                //System.out.println(entry.getKey());
-                if (gamePhase == Status.PHASE_1) {
-
-                    if(!board.hasPieceAt(entry.getValue())) {
-                        if (isRedTurn) {
-                            piece = red_piece_panel.useOnePiece();
-                        } else piece = blue_piece_panel.useOnePiece();
-                        piece.setCurrentPosition(entry.getValue());
-                        board.addPieceAt(piece, entry.getValue());
-
-                        toggleTurn();
-                        if (red_piece_panel.getPieceSetSize() == 0 && blue_piece_panel.getPieceSetSize() == 0) {
-                            gamePhase = Status.PHASE_2;
-                            System.out.println("Phase 2 starts");
-                        }
-                    }
-                }
-                else if (gamePhase == Status.PHASE_2){
-
-
-                    System.out.print(entry.getValue().getLayer());
-                    System.out.print(' ');
-                    System.out.println(entry.getValue().getPositionNumber());
-                    //System.out.println(entry.getValue().getLocation());
-
-                    //System.out.println(board.getPiece(entry.getValue()).getCurrentPosition().getLocation());
-                    //targetPiece = board.getPiece(entry.getValue());
-                    if(currentMove!=null){
-                        piece=currentMove.getPiece();
-                    }
-
-                    if(board.hasPieceAt(entry.getValue())) {
-                        piece = board.getPiece(entry.getValue());
-                        if(piece.isRed==isRedTurn) {
-                            currentMove = new MovePieceMove(piece);
-                            System.out.println("New");
-                        }
-
-                    }
-                    else {
-                        if (currentMove != null && piece.getCurrentPosition().getAdjacentPositions(board).contains(entry.getValue())) {
-                            currentMove.execute(piece, board, entry.getValue());
-                            currentMove =null;
-                            toggleTurn();
-                            System.out.println("Empty");
-                        }
-                    }
-
-                    if(piece!=null)System.out.println(piece);
-                    if (board.getNumberOfBluePieces() == 3){
-                        player2.addStatus(Status.ACTIVE_FLY);
-                        gamePhase = Status.PHASE_3;
-                    } else if (board.getNumberOfRedPieces() == 3){
-                        player1.hasStatus(Status.ACTIVE_FLY);
-                        gamePhase = Status.PHASE_3;
-                    }
-                    toggleTurn();
-                } else if (gamePhase == Status.PHASE_3){
-                    System.out.println("Phase 3 starts");
-                }
-                if (board.isGameOver(isRedTurn)){
-                    return;
-                }
-            }
-        }
-    }
-
-
+    */
 }
+
