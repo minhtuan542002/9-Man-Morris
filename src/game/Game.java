@@ -208,10 +208,10 @@ public class Game implements ActionListener {
                     toggleTurn();
                 } else if (gamePhase == Status.PHASE_3){
                     System.out.println("Phase 3 starts");
-
-
                 }
-
+                if (board.isGameOver(isRedTurn)){
+                    return;
+                }
             }
         }
     }

@@ -1,4 +1,5 @@
 package piece;
+import game.Board;
 import status.*;
 import game.Position;
 
@@ -91,9 +92,12 @@ public class Piece extends JLabel implements State{
         g.drawImage(image, x_position, y_position, tileSize, tileSize, null);
     }
 
-    public List<Position> availableMove(){
-        List<Position> temp = new ArrayList<>();
-        return temp;
+    public Boolean hasAvailableMove(Board board){
+        List<Position> availbaleMove = currentPosition.getAdjacentPositions(board);
+        if (availbaleMove.size() > 0){
+            return true;
+        }
+        return false;
     }
 
     @Override

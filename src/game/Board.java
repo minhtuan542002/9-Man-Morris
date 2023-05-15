@@ -240,4 +240,42 @@ public  class Board extends JPanel {
         return blueNo;
     }
 
+    public boolean isGameOver(Boolean isRedTurn){
+        //Case 1: red player has less or equal to 2 pieces
+
+        int numberRedPieces = getNumberOfRedPieces();
+        int numberBluePieces = getNumberOfBluePieces();
+        if (numberRedPieces <= 2 ){
+            System.out.println("Red Player lose");
+            return true;
+        }else if (numberBluePieces <= 2){
+            System.out.print("Blue Player lose");
+            return true;
+        }
+        //Case 2: player is unable to move
+        if (isRedTurn) {
+            if (!pieceSetHasAvailableMove(Status.RED)){
+                System.out.println("Red Player lose");
+                return true;
+            }
+        } else {
+            if (!pieceSetHasAvailableMove(Status.BLUE)){
+                System.out.println("Blue Player lose");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean pieceSetHasAvailableMove(Status status){
+        for (Map.Entry<Position,Piece> i: mapping.entrySet()){
+            Piece temp = i.getValue();
+            if (temp.hasStatus(status)){
+                if (temp.hasAvailableMove(this)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
