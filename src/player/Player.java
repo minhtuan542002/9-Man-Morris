@@ -48,7 +48,14 @@ public class Player implements State, ActionListener {
         this.pieceSet = pieceSet;
         gamePhase = Status.PHASE_1;
     }
-     /**
+    /**
+     * return current game phase
+     * */
+    public Status getGamePhase() {
+        return gamePhase;
+    }
+
+    /**
      * Print Player name
      *
      * @param 
@@ -128,8 +135,7 @@ public class Player implements State, ActionListener {
 
                         if (pieceSet.getPieceSetSize() == 0) {
                             //Testing phase 3
-                            gamePhase = Status.PHASE_3;
-                            this.addStatus(Status.ACTIVE_FLY);
+                            gamePhase = Status.PHASE_2;
                             System.out.println("Phase 2 starts");
                         }
 
@@ -183,6 +189,7 @@ public class Player implements State, ActionListener {
                         gamePhase = Status.PHASE_3;
                     }
                     isInTurn=false;
+
                     //return;
                 } else if (gamePhase == Status.PHASE_3){
                     System.out.println("Phase 3 starts");
@@ -210,14 +217,17 @@ public class Player implements State, ActionListener {
                         }
                     }
                 }
-                if (board.isGameOver(true)){
-                    return;
+                if (board.isGameOver(this, gamePhase)){
+                    System.out.println("Game Over");
+                    gamePhase = Status.GAME_OVER;
+                    break;
                 }
             }
         }
     }
 
     public Boolean finishedTurn(){
+
         return !isInTurn;
     }
 

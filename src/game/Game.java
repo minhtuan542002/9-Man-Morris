@@ -118,12 +118,18 @@ public class Game {
      */
     public void update() {
         if(isRedTurn){
+            if (player1.getGamePhase() == Status.GAME_OVER){
+                running = false;
+            }
             if(player1.finishedTurn()){
                 toggleTurn();
                 player2.newTurn();
             }
         }
         else {
+            if (player2.getGamePhase() == Status.GAME_OVER){
+                running = false;
+            }
             if(player2.finishedTurn()){
                 toggleTurn();
                 player1.newTurn();
@@ -142,6 +148,7 @@ public class Game {
             update();
             display.repaint();
         }
+        display.announceEndGame();
         frame.dispose();
     }
 

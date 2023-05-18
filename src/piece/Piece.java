@@ -94,8 +94,10 @@ public class Piece extends JLabel implements State{
 
     public Boolean hasAvailableMove(Board board){
         List<Position> availbaleMove = currentPosition.getAdjacentPositions(board);
-        if (availbaleMove.size() > 0){
-            return true;
+        for (Position position: availbaleMove){
+            if (!board.hasPieceAt(position)){
+                return true;
+            }
         }
         return false;
     }

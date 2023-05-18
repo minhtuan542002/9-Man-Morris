@@ -52,4 +52,8 @@ public class Display extends JPanel{
         }
     }
 
+    public void announceEndGame(){
+        text_field.setText("Game Over");
+    }
+
 }

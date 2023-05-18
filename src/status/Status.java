@@ -32,6 +32,11 @@ public enum Status {
     /**
      * Is in second phrase of the game (Moving pieces)
      */
-    PHASE_2, ACTIVE_FLY,
-    PHASE_3
+    PHASE_2,
+    /**
+     * Is used in third phrase of the game (Flying Pieces)
+     * */
+    ACTIVE_FLY,
+    PHASE_3,
+    GAME_OVER
 }
