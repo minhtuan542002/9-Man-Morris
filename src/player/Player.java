@@ -1,5 +1,6 @@
 package player;
 
+import action.FlyPieceMove;
 import action.Move;
 import action.MovePieceMove;
 import game.Board;
@@ -126,7 +127,9 @@ public class Player implements State, ActionListener {
 
 
                         if (pieceSet.getPieceSetSize() == 0) {
-                            gamePhase = Status.PHASE_2;
+                            //Testing phase 3
+                            gamePhase = Status.PHASE_3;
+                            this.addStatus(Status.ACTIVE_FLY);
                             System.out.println("Phase 2 starts");
                         }
 
@@ -183,6 +186,29 @@ public class Player implements State, ActionListener {
                     //return;
                 } else if (gamePhase == Status.PHASE_3){
                     System.out.println("Phase 3 starts");
+
+                    if(currentMove!=null){
+                        System.out.println("In progress");
+                    }
+
+                    if (board.hasPieceAt(entry.getValue())){
+                        piece = board.getPiece(entry.getValue());
+
+                        System.out.println("Get piece at " + piece.getCurrentPosition());
+
+                        if (this.hasStatus(Status.ACTIVE_FLY)){
+                            currentMove = new FlyPieceMove(piece);
+                        } else {
+                            currentMove = new MovePieceMove(piece);
+                        }
+                    } else {
+                        if (currentMove != null) {
+                            piece = currentMove.getPiece();
+                            currentMove.execute(piece, board, entry.getValue());
+                            currentMove = null;
+                            isInTurn = false;
+                        }
+                    }
                 }
                 if (board.isGameOver(true)){
                     return;

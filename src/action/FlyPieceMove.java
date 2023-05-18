@@ -10,11 +10,17 @@ import game.Position;
  * Modified by: 
  * */
 public class FlyPieceMove implements Move {
+    private Piece piece;
+    public FlyPieceMove(Piece piece) {
+        this.piece = piece;
+    }
+
     @Override
     public String execute(Piece piece, Board board, Position position) {
         if (!board.hasPieceAt(position)){
-            board.addPieceAt(piece,position);
             board.removePiece(piece);
+            board.addPieceAt(piece,position);
+            piece.setCurrentPosition(position);
         }
 
         return null;
@@ -22,6 +28,6 @@ public class FlyPieceMove implements Move {
 
     @Override
     public Piece getPiece() {
-        return null;
+        return piece;
     }
 }
