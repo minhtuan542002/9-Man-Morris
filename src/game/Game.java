@@ -150,6 +150,7 @@ public class Game {
      */
     private void toggleTurn() {
         isRedTurn = !isRedTurn;
+        display.changeLabel(isRedTurn);
     }
     /*
     public Status getGamePhase() {

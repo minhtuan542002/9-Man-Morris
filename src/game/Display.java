@@ -31,7 +31,7 @@ public class Display extends JPanel{
         text_panel.setBounds(0,0,1000,100);
 
         text_field.setBackground(Color.WHITE);
-        text_field.setForeground(new Color(25,255,0));
+        text_field.setForeground(Color.red);
         text_field.setFont(new Font("Ink Free",Font.BOLD,75));
         text_field.setHorizontalAlignment(JLabel.CENTER);
         text_field.setText("Red Player Turn");
@@ -42,5 +42,14 @@ public class Display extends JPanel{
 
     }
 
+    public void changeLabel(Boolean isRedTurn){
+        if (isRedTurn){
+            text_field.setText("Red Player Turn");
+            text_field.setForeground(Color.red);
+        } else {
+            text_field.setText("Blue Player Turn");
+            text_field.setForeground(Color.blue);
+        }
+    }
 
 }
