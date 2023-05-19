@@ -7,6 +7,7 @@ import status.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -143,63 +144,113 @@ public  class Board extends JPanel {
     }
 
     public void updateMills(){
+        for (int layer =0; layer<3; layer++){
+            for (int i=0; i<8;i++){
+                if(hasPieceAt(positions.get(new Point(layer, i)))) {
+                    mapping.get(positions.get(new Point(layer, i))).removeStatus(Status.IN_MILL);
+                    mapping.get(positions.get(new Point(layer, i))).addStatus(Status.OUTSIDE_MILL);
+                }
+            }
+        }
         for(int layer=0; layer<3; layer++) {
-            for (int i = 0; i < 9; i += 3) {
+            for (int i = 0; i < 6; i += 2) {
                 Boolean inMill = true;
                 for (int j = 0; j < 3; j++) {
-                    if (!hasPieceAt(positions.get(new Point(layer, i+j)))) {
+                    if (!hasPieceAt(positions.get(new Point(layer, i+j)))){
+                        inMill=false;
+                        break;
+                    }
+                    else if(!(mapping.get(positions.get(new Point(layer, i + j))).isRed==mapping.get(positions.get(new Point(layer, i))).isRed)){
                         inMill = false;
+                        break;
                     }
                 }
                 if (inMill) {
                     for (int j = 0; j < 3; j++) {
-                        mapping.get(positions.get(new Point(layer, i+j))).removeStatus(Status.OUTSIDE_MILL);
-                        mapping.get(positions.get(new Point(layer, i+j))).addStatus(Status.IN_MILL);
+                        if (hasPieceAt(positions.get(new Point(layer, i+j)))) {
+                            mapping.get(positions.get(new Point(layer, i + j))).removeStatus(Status.OUTSIDE_MILL);
+                            mapping.get(positions.get(new Point(layer, i + j))).addStatus(Status.IN_MILL);
+                        }
 
-                    }
-                } else {
-                    for (int j = 0; j < 3; j++) {
-                        mapping.get(positions.get(new Point(layer, i+j))).removeStatus(Status.IN_MILL);
-                        mapping.get(positions.get(new Point(layer, i+j))).addStatus(Status.OUTSIDE_MILL);
 
                     }
                 }
             }
+            Boolean inMill=true;
+            int array[] ={0,7,6};
+            for(int j : array){
+                if (!hasPieceAt(positions.get(new Point(layer, j)))){
+                    inMill =false;
+                    break;
+                }
+                else if(!(mapping.get(positions.get(new Point(layer, j))).isRed==mapping.get(positions.get(new Point(layer, 0))).isRed)){
+
+                    inMill = false;
+                        break;
+                }
+            }
+            if (inMill) {
+                for(int j : array){
+                    if (hasPieceAt(positions.get(new Point(layer, j)))) {
+                        mapping.get(positions.get(new Point(layer, j))).removeStatus(Status.OUTSIDE_MILL);
+                        mapping.get(positions.get(new Point(layer, j))).addStatus(Status.IN_MILL);
+                    }
+
+
+                }
+            }
         }
-        for(int i=1; i<9; i+=2){
+        for(int i=1; i<8; i+=2){
             Boolean inMill=true;
             for (int j=0; j<3; j++){
                 if(!hasPieceAt(positions.get(new Point(j, i)))){
+                    inMill =false;
+                    break;
+                }
+                else if(!(mapping.get(positions.get(new Point(j, i))).isRed==mapping.get(positions.get(new Point(0, i))).isRed)){
+
                     inMill=false;
+                    break;
                 }
             }
             if(inMill){
                 for (int j=0; j<3; j++){
-                    mapping.get(positions.get(new Point(j, i))).removeStatus(Status.OUTSIDE_MILL);
-                    mapping.get(positions.get(new Point(j, i))).addStatus(Status.IN_MILL);
-
+                    if (hasPieceAt(positions.get(new Point(j, i)))) {
+                        mapping.get(positions.get(new Point(j, i))).removeStatus(Status.OUTSIDE_MILL);
+                        mapping.get(positions.get(new Point(j, i))).addStatus(Status.IN_MILL);
+                    }
                 }
-            }
-            else {
-                for (int j=0; j<3; j++){
-                    mapping.get(positions.get(new Point(j, i))).removeStatus(Status.IN_MILL);
-                    mapping.get(positions.get(new Point(j, i))).addStatus(Status.OUTSIDE_MILL);
 
-                }
             }
+
         }
+        System.out.println("------------");
+        for (int layer =0; layer<3; layer++){
+            System.out.print(layer);
+            for (int i=0; i<8;i++){
+                if(hasPieceAt(positions.get(new Point(layer, i))))
+                    System.out.print(mapping.get(positions.get(new Point(layer, i))).hasStatus(Status.IN_MILL));
+                System.out.print(' ');
+            }
+            System.out.println();
+        }
+        System.out.println("------------");
     }
 
     public  boolean isAllMill(boolean isRed){
-        boolean result=false;
         for(int layer=0; layer<3; layer++){
-            for(int i=0; i<9; i++){
-                if(mapping.get(positions.get(new Point(layer, i))).hasStatus(Status.OUTSIDE_MILL)){
-                    result=false;
+            for(int i=0; i<8; i++){
+                if(hasPieceAt(positions.get(new Point(layer, i)))) {
+                    if (mapping.get(positions.get(new Point(layer, i))).hasStatus(Status.OUTSIDE_MILL)) {
+                        System.out.println("NOT ALL MILL");
+                        return false;
+
+                    }
                 }
             }
         }
-        return  result;
+        System.out.println("ALL MILL");
+        return  true;
     }
     /**
      * Get all the positions in the board
@@ -227,6 +278,7 @@ public  class Board extends JPanel {
             throw new RuntimeException("Piece do ot have position");
         }
         mapping.remove(piece.getCurrentPosition(), piece);
+        layeredPane.remove(piece.pieceImage);
     }
 
     /**
@@ -238,7 +290,7 @@ public  class Board extends JPanel {
         mapping.put(position, piece);
         //positionButtons.remove(position);
         //piece.setCurrentPosition(position);
-        layeredPane.add(piece,1);
+        //layeredPane.add(piece,1);
         layeredPane.add(piece.pieceImage, 0);
         piece.setBounds(position.getBounds());
         piece.pieceImage.setBounds(position.getBounds());

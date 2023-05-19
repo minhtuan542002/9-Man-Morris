@@ -27,6 +27,7 @@ public class Player implements State, ActionListener {
     private Board board;
     private PieceSet pieceSet;
     private Status gamePhase;
+    private Status previousPhase;
     private Move currentMove = null;
     private Boolean isInTurn =false;
     private final StatusSet statusSet = new StatusSet();
@@ -133,12 +134,6 @@ public class Player implements State, ActionListener {
                         currentMove = new SetPieceMove();
                         currentMove.execute(piece, board, entry.getValue());
                         //board.updateMills();
-                        if (piece.hasStatus(Status.IN_MILL)) {
-                            if(!board.isAllMill(!isRed)){
-                                gamePhase=Status.PHASE_REMOVE;
-                            }
-                        }
-
 
                         if (pieceSet.getPieceSetSize() == 0) {
                             //Testing phase 3
@@ -146,7 +141,13 @@ public class Player implements State, ActionListener {
                             System.out.println("Phase 2 starts");
                         }
 
-                        isInTurn=false;
+                        if (piece.hasStatus(Status.IN_MILL) && (!board.isAllMill(!isRed)) ){
+                                previousPhase=gamePhase;
+                                gamePhase=Status.PHASE_REMOVE;
+                        }else {
+                            isInTurn=false;
+                        }
+
                         return;
                     }
                 }
@@ -170,8 +171,8 @@ public class Player implements State, ActionListener {
                         if (piece.isRed == isRed) {
                             currentMove = new MovePieceMove(piece);
                         }
-                        System.out.print(name);
-                        System.out.println("New");
+                        //System.out.print(name);
+                        //System.out.println("New");
 
 
                     } else {
@@ -181,13 +182,15 @@ public class Player implements State, ActionListener {
                                 currentMove.execute(piece, board, entry.getValue());
                                 currentMove = null;
                                 board.updateMills();
-                                if (piece.hasStatus(Status.IN_MILL)) {
-                                    if(!board.isAllMill(!isRed)){
+                                if (piece.hasStatus(Status.IN_MILL)&&(!board.isAllMill(!isRed)) ){
+                                        previousPhase=gamePhase;
                                         gamePhase=Status.PHASE_REMOVE;
-                                    }
+
                                 }
-                                System.out.println("Empty");
-                                isInTurn = false;
+                                else {
+                                    //System.out.println("Empty");
+                                    isInTurn = false;
+                                }
                                 //return;
                             }
                         }
@@ -206,10 +209,15 @@ public class Player implements State, ActionListener {
                     //return;
                 } else if (gamePhase == Status.PHASE_REMOVE) {
                     if (board.hasPieceAt(entry.getValue())) {
+                        piece=board.getPiece(entry.getValue());
                         if (piece.isRed != isRed) {
-                            currentMove = new RemovePieceMove(piece);
-                            currentMove.execute(piece,board, entry.getValue());
-                            currentMove =null;
+                            if(piece.hasStatus(Status.OUTSIDE_MILL)) {
+                                currentMove = new RemovePieceMove(piece);
+                                currentMove.execute(piece, board, entry.getValue());
+                                currentMove = null;
+                                gamePhase = previousPhase;
+                                isInTurn = false;
+                            }
                         }
                     }
 

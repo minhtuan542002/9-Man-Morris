@@ -20,6 +20,7 @@ public class RemovePieceMove implements Move {
         String result = "";
         if (!piece.hasStatus(Status.IN_MILL)){
             board.removePiece(piece);
+            piece.setCurrentPosition(null);
             result += "Remove 1 piece";
         }
         return result;
