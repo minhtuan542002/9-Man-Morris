@@ -143,14 +143,63 @@ public  class Board extends JPanel {
     }
 
     public void updateMills(){
-        for(int i=0; i<9; i+=3){
+        for(int layer=0; layer<3; layer++) {
+            for (int i = 0; i < 9; i += 3) {
+                Boolean inMill = true;
+                for (int j = 0; j < 3; j++) {
+                    if (!hasPieceAt(positions.get(new Point(layer, i+j)))) {
+                        inMill = false;
+                    }
+                }
+                if (inMill) {
+                    for (int j = 0; j < 3; j++) {
+                        mapping.get(positions.get(new Point(layer, i+j))).removeStatus(Status.OUTSIDE_MILL);
+                        mapping.get(positions.get(new Point(layer, i+j))).addStatus(Status.IN_MILL);
+
+                    }
+                } else {
+                    for (int j = 0; j < 3; j++) {
+                        mapping.get(positions.get(new Point(layer, i+j))).removeStatus(Status.IN_MILL);
+                        mapping.get(positions.get(new Point(layer, i+j))).addStatus(Status.OUTSIDE_MILL);
+
+                    }
+                }
+            }
+        }
+        for(int i=1; i<9; i+=2){
             Boolean inMill=true;
             for (int j=0; j<3; j++){
-                if(hasPieceAt(positions.get(new Point(j, i)))){
+                if(!hasPieceAt(positions.get(new Point(j, i)))){
+                    inMill=false;
+                }
+            }
+            if(inMill){
+                for (int j=0; j<3; j++){
+                    mapping.get(positions.get(new Point(j, i))).removeStatus(Status.OUTSIDE_MILL);
+                    mapping.get(positions.get(new Point(j, i))).addStatus(Status.IN_MILL);
+
+                }
+            }
+            else {
+                for (int j=0; j<3; j++){
+                    mapping.get(positions.get(new Point(j, i))).removeStatus(Status.IN_MILL);
+                    mapping.get(positions.get(new Point(j, i))).addStatus(Status.OUTSIDE_MILL);
 
                 }
             }
         }
+    }
+
+    public  boolean isAllMill(boolean isRed){
+        boolean result=false;
+        for(int layer=0; layer<3; layer++){
+            for(int i=0; i<9; i++){
+                if(mapping.get(positions.get(new Point(layer, i))).hasStatus(Status.OUTSIDE_MILL)){
+                    result=false;
+                }
+            }
+        }
+        return  result;
     }
     /**
      * Get all the positions in the board

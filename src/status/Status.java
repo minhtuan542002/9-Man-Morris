@@ -18,13 +18,9 @@ public enum Status {
      */
     OUTSIDE_MILL,
     /**
-     * Is a human player
+     * Is in remove piece phase
      */
-    HUMAN,
-    /**
-     * Is a computer player
-     */
-    COMPUTER,
+    PHASE_REMOVE,
     /**
      * Is in first phrase of the game (Setting pieces)
      */

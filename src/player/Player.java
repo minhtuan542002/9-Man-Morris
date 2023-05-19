@@ -3,6 +3,7 @@ package player;
 import action.FlyPieceMove;
 import action.Move;
 import action.MovePieceMove;
+import action.RemovePieceMove;
 import game.Board;
 import game.Position;
 import piece.Piece;
@@ -146,7 +147,7 @@ public class Player implements State, ActionListener {
                         return;
                     }
                 }
-                else if (gamePhase == Status.PHASE_2){
+                else if (gamePhase == Status.PHASE_2) {
 
 
                     System.out.print(entry.getValue().getLayer());
@@ -156,28 +157,31 @@ public class Player implements State, ActionListener {
 
                     //System.out.println(board.getPiece(entry.getValue()).getCurrentPosition().getLocation());
                     //targetPiece = board.getPiece(entry.getValue());
-                    if(currentMove!=null){
+                    if (currentMove != null) {
                         System.out.println("In progress");
 
                     }
 
-                    if(board.hasPieceAt(entry.getValue())) {
+                    if (board.hasPieceAt(entry.getValue())) {
                         piece = board.getPiece(entry.getValue());
-                        if(piece.isRed==isRed) {
-                            currentMove =new MovePieceMove(piece);
+                        if (piece.isRed == isRed) {
+                            currentMove = new MovePieceMove(piece);
                         }
                         System.out.print(name);
                         System.out.println("New");
 
 
-                    }
-                    else {
+                    } else {
                         if (currentMove != null) {
-                            piece=currentMove.getPiece();
-                            if(piece.getCurrentPosition().getAdjacentPositions(board).contains(entry.getValue())) {
+                            piece = currentMove.getPiece();
+                            if (piece.getCurrentPosition().getAdjacentPositions(board).contains(entry.getValue())) {
                                 currentMove.execute(piece, board, entry.getValue());
                                 currentMove = null;
-
+                                if (piece.hasStatus(Status.IN_MILL)) {
+                                    if(!board.isAllMill(!isRed)){
+                                        gamePhase=Status.PHASE_REMOVE;
+                                    }
+                                }
                                 System.out.println("Empty");
                                 isInTurn = false;
                                 //return;
@@ -185,17 +189,26 @@ public class Player implements State, ActionListener {
                         }
                     }
 
-                    if(piece!=null)System.out.println(piece);
-                    if (board.getNumberOfBluePieces() == 3){
+                    if (piece != null) System.out.println(piece);
+                    if (board.getNumberOfBluePieces() == 3) {
                         this.addStatus(Status.ACTIVE_FLY);
                         gamePhase = Status.PHASE_3;
-                    } else if (board.getNumberOfRedPieces() == 3){
+                    } else if (board.getNumberOfRedPieces() == 3) {
                         this.hasStatus(Status.ACTIVE_FLY);
                         gamePhase = Status.PHASE_3;
                     }
                     //isInTurn=false;
 
                     //return;
+                } else if (gamePhase == Status.PHASE_REMOVE) {
+                    if (board.hasPieceAt(entry.getValue())) {
+                        if (piece.isRed != isRed) {
+                            currentMove = new RemovePieceMove(piece);
+                            currentMove.execute(piece,board, entry.getValue());
+                            currentMove =null;
+                        }
+                    }
+
                 } else if (gamePhase == Status.PHASE_3){
                     System.out.println("Phase 3 starts");
 
