@@ -5,7 +5,6 @@ import action.Move;
 import action.MovePieceMove;
 import game.Board;
 import game.Position;
-import game.StartPanel;
 import piece.Piece;
 import piece.PieceSet;
 import status.State;
@@ -34,18 +33,22 @@ public class Player implements State, ActionListener {
     private Boolean isInTurn =false;
     private final StatusSet statusSet = new StatusSet();
 
+    private boolean isRed;
+
      /**
       * Constructor
       *
       * @param name
       * @param board
       * @param pieceSet
+      * @param isRed
       */
-    public Player(String name, Board board, PieceSet pieceSet) {
+    public Player(String name, Board board, PieceSet pieceSet, boolean isRed) {
 
         this.name = name;
         this.board = board;
         this.pieceSet = pieceSet;
+        this.isRed = isRed;
         gamePhase = Status.PHASE_1;
     }
     /**
@@ -160,7 +163,9 @@ public class Player implements State, ActionListener {
 
                     if(board.hasPieceAt(entry.getValue())) {
                         piece = board.getPiece(entry.getValue());
-                        currentMove = new MovePieceMove(piece);
+                        if(piece.isRed==isRed) {
+                            currentMove =new MovePieceMove(piece);
+                        }
                         System.out.print(name);
                         System.out.println("New");
 
@@ -188,7 +193,7 @@ public class Player implements State, ActionListener {
                         this.hasStatus(Status.ACTIVE_FLY);
                         gamePhase = Status.PHASE_3;
                     }
-                    isInTurn=false;
+                    //isInTurn=false;
 
                     //return;
                 } else if (gamePhase == Status.PHASE_3){

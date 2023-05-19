@@ -142,7 +142,16 @@ public  class Board extends JPanel {
         }
     }
 
+    public void updateMills(){
+        for(int i=0; i<9; i+=3){
+            Boolean inMill=true;
+            for (int j=0; j<3; j++){
+                if(hasPieceAt(positions.get(new Point(j, i)))){
 
+                }
+            }
+        }
+    }
     /**
      * Get all the positions in the board
      * @return Return a Hash map of Point connecting to Position

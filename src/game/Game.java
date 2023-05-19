@@ -1,5 +1,4 @@
 package game;
-import action.Move;
 import piece.*;
 import player.*;
 import status.Status;
@@ -88,8 +87,8 @@ public class Game {
         red_piece_panel = new PieceSet(Status.RED);
 
         blue_piece_panel = new PieceSet(Status.BLUE);
-        player1 = new Player("Red Player", board, red_piece_panel);
-        player2 = new Player("Blue Player", board, blue_piece_panel);
+        player1 = new Player("Red Player", board, red_piece_panel, true);
+        player2 = new Player("Blue Player", board, blue_piece_panel, false);
         player1.newTurn();
 
 
