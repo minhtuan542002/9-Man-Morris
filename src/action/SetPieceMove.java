@@ -12,6 +12,9 @@ import piece.Piece;
 public class SetPieceMove implements Move{
     @Override
     public String execute(Piece piece, Board board, Position position) {
+        piece.setCurrentPosition(position);
+        board.addPieceAt(piece, position);
+        board.updateMills();
         return null;
     }
 

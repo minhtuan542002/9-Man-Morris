@@ -1,9 +1,6 @@
 package player;
 
-import action.FlyPieceMove;
-import action.Move;
-import action.MovePieceMove;
-import action.RemovePieceMove;
+import action.*;
 import game.Board;
 import game.Position;
 import piece.Piece;
@@ -133,8 +130,14 @@ public class Player implements State, ActionListener {
 
                     if(!board.hasPieceAt(entry.getValue())) {
                         piece=pieceSet.useOnePiece();
-                        piece.setCurrentPosition(entry.getValue());
-                        board.addPieceAt(piece, entry.getValue());
+                        currentMove = new SetPieceMove();
+                        currentMove.execute(piece, board, entry.getValue());
+                        //board.updateMills();
+                        if (piece.hasStatus(Status.IN_MILL)) {
+                            if(!board.isAllMill(!isRed)){
+                                gamePhase=Status.PHASE_REMOVE;
+                            }
+                        }
 
 
                         if (pieceSet.getPieceSetSize() == 0) {
@@ -177,6 +180,7 @@ public class Player implements State, ActionListener {
                             if (piece.getCurrentPosition().getAdjacentPositions(board).contains(entry.getValue())) {
                                 currentMove.execute(piece, board, entry.getValue());
                                 currentMove = null;
+                                board.updateMills();
                                 if (piece.hasStatus(Status.IN_MILL)) {
                                     if(!board.isAllMill(!isRed)){
                                         gamePhase=Status.PHASE_REMOVE;
