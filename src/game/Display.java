@@ -42,6 +42,11 @@ public class Display extends JPanel{
 
     }
 
+    /**
+     * Change the text_label to the current player turn
+     * @param isRedTurn
+     * */
+
     public void changeLabel(Boolean isRedTurn){
         if (isRedTurn){
             text_field.setText("Red Player Turn");
@@ -52,8 +57,21 @@ public class Display extends JPanel{
         }
     }
 
+    /**
+     * Displaye "Game over" to announce the game is over.
+     * */
     public void announceEndGame(){
         text_field.setText("Game Over");
+    }
+
+    public void removeAnnounce(Boolean isRedTurn){
+        if (isRedTurn){
+            text_field.setText("Remove one Blue Piece (not in MILLS)");
+            text_field.setForeground(Color.red);
+        } else {
+            text_field.setText("Remove one Blue Piece (not in MILLS)");
+            text_field.setForeground(Color.blue);
+        }
     }
 
 }
