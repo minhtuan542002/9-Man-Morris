@@ -140,7 +140,7 @@ public class Game {
      * The main game loop
      */
     public void run() {
-        init();
+
         running = true;
         while (running) {
             //System.out.println("Game loop is running");
