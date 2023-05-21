@@ -207,20 +207,6 @@ public class Player implements State, ActionListener {
                     //isInTurn=false;
 
                     //return;
-                } else if (gamePhase == Status.PHASE_REMOVE) {
-                    if (board.hasPieceAt(entry.getValue())) {
-                        piece=board.getPiece(entry.getValue());
-                        if (piece.isRed != isRed) {
-                            if(piece.hasStatus(Status.OUTSIDE_MILL)) {
-                                currentMove = new RemovePieceMove(piece);
-                                currentMove.execute(piece, board, entry.getValue());
-                                currentMove = null;
-                                gamePhase = previousPhase;
-                                isInTurn = false;
-                            }
-                        }
-                    }
-
                 } else if (gamePhase == Status.PHASE_3){
                     System.out.println("Phase 3 starts");
 
@@ -243,9 +229,34 @@ public class Player implements State, ActionListener {
                             piece = currentMove.getPiece();
                             currentMove.execute(piece, board, entry.getValue());
                             currentMove = null;
+                            board.updateMills();
+                            if (piece.hasStatus(Status.IN_MILL)&&(!board.isAllMill(!isRed)) ){
+                                previousPhase=gamePhase;
+                                gamePhase=Status.PHASE_REMOVE;
+
+                            }
+                            else {
+                                //System.out.println("Empty");
+                                isInTurn = false;
+                            }
                             isInTurn = false;
                         }
                     }
+                }
+                else if (gamePhase == Status.PHASE_REMOVE) {
+                    if (board.hasPieceAt(entry.getValue())) {
+                        piece=board.getPiece(entry.getValue());
+                        if (piece.isRed != isRed) {
+                            if(piece.hasStatus(Status.OUTSIDE_MILL)) {
+                                currentMove = new RemovePieceMove(piece);
+                                currentMove.execute(piece, board, entry.getValue());
+                                currentMove = null;
+                                gamePhase = previousPhase;
+                                isInTurn = false;
+                            }
+                        }
+                    }
+
                 }
                 if (board.isGameOver(this, gamePhase)){
                     System.out.println("Game Over");

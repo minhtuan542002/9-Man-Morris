@@ -117,8 +117,9 @@ public class Game {
      */
     public void update() {
         if(isRedTurn){
-            if (player1.getGamePhase() == Status.GAME_OVER){
-                running = false;
+            switch (player1.getGamePhase()){
+                case GAME_OVER -> running = false;
+                case PHASE_REMOVE -> display.removeAnnounce(isRedTurn);
             }
             if(player1.finishedTurn()){
                 toggleTurn();
@@ -126,8 +127,9 @@ public class Game {
             }
         }
         else {
-            if (player2.getGamePhase() == Status.GAME_OVER){
-                running = false;
+            switch (player2.getGamePhase()){
+                case GAME_OVER -> running = false;
+                case PHASE_REMOVE -> display.removeAnnounce(isRedTurn);
             }
             if(player2.finishedTurn()){
                 toggleTurn();
