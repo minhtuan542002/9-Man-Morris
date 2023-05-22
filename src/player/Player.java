@@ -48,6 +48,9 @@ public class Player implements State, ActionListener {
         this.board = board;
         this.pieceSet = pieceSet;
         this.isRed = isRed;
+        if(isRed){
+            addStatus(Status.RED);
+        }else addStatus(Status.BLUE);
         gamePhase = Status.PHASE_1;
     }
     /**
