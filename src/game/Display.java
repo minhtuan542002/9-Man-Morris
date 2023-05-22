@@ -66,10 +66,10 @@ public class Display extends JPanel{
 
     public void removeAnnounce(Boolean isRedTurn){
         if (isRedTurn){
-            text_field.setText("Remove one Blue Piece (not in MILLS)");
+            text_field.setText("Remove one Blue Piece");
             text_field.setForeground(Color.red);
         } else {
-            text_field.setText("Remove one Blue Piece (not in MILLS)");
+            text_field.setText("Remove one Red Piece");
             text_field.setForeground(Color.blue);
         }
     }
