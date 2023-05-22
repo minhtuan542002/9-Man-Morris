@@ -241,10 +241,12 @@ public  class Board extends JPanel {
         for(int layer=0; layer<3; layer++){
             for(int i=0; i<8; i++){
                 if(hasPieceAt(positions.get(new Point(layer, i)))) {
-                    if (mapping.get(positions.get(new Point(layer, i))).hasStatus(Status.OUTSIDE_MILL)) {
-                        System.out.println("NOT ALL MILL");
-                        return false;
+                    if(mapping.get(positions.get(new Point(layer, i))).isRed==isRed) {
+                        if (mapping.get(positions.get(new Point(layer, i))).hasStatus(Status.OUTSIDE_MILL)) {
+                            System.out.println("NOT ALL MILL");
+                            return false;
 
+                        }
                     }
                 }
             }
