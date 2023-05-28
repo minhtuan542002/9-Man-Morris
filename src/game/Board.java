@@ -357,46 +357,40 @@ public  class Board extends JPanel {
 
     public boolean isGameOver(Player player, Status gamePhase){
         //Case 1: red player has less or equal to 2 pieces
+        System.out.println("-------------------------");
         System.out.println("Start detecting End game");
+        if (gamePhase != Status.PHASE_1) {
+            int numberRedPieces = getNumberOfRedPieces();
+            int numberBluePieces = getNumberOfBluePieces();
 
-        int numberRedPieces = getNumberOfRedPieces();
-        int numberBluePieces = getNumberOfBluePieces();
-
+            if (numberRedPieces <= 2) {
+                System.out.println(numberRedPieces);
+                System.out.println("Red Player lose");
+                return true;
+            }
+            if (numberBluePieces <= 2) {
+                System.out.println(numberBluePieces);
+                System.out.print("Blue Player lose");
+                return true;
+            }
+        }
         //Case 2: player is unable to move
         if (player.hasStatus(Status.RED)) {
             System.out.println("Start analyzing player red");
-            switch (gamePhase){
-                case PHASE_2:
-                    if (!pieceSetHasAvailableMove(Status.RED)){
-                        System.out.println("Red piece has more move: " + pieceSetHasAvailableMove(Status.RED));
-                        System.out.println("Red Player lose");
-                        return true;
-                    }
-                case PHASE_3:
-                    if (numberRedPieces <= 2 ) {
-                        System.out.println(numberRedPieces);
-                        System.out.println("Red Player lose");
-                        return true;
-                    }
+            if (!pieceSetHasAvailableMove(Status.RED)) {
+                System.out.println("Red piece has more move: " + pieceSetHasAvailableMove(Status.RED));
+                System.out.println("Red Player lose");
+                return true;
             }
-
         } else {
             System.out.println("Start analyzing player blue");
-            switch (gamePhase){
-                case PHASE_3:
-                    if (numberBluePieces <= 2){
-                        System.out.println(numberBluePieces);
-                        System.out.print("Blue Player lose");
-                        return true;
-                    }
-                case PHASE_2:
-                    if (!pieceSetHasAvailableMove(Status.BLUE)){
-                        System.out.println("BLue piece has more move: " + pieceSetHasAvailableMove(Status.BLUE));
-                        System.out.println("Blue Player lose");
-                        return true;
-                    }
+            if (!pieceSetHasAvailableMove(Status.BLUE)){
+                System.out.println("BLue piece has more move: " + pieceSetHasAvailableMove(Status.BLUE));
+                System.out.println("Blue Player lose");
+                return true;
             }
         }
+        System.out.println("-------------------------");
         return false;
     }
 

@@ -195,11 +195,12 @@ public class Player implements State, ActionListener {
                                     isInTurn = false;
                                 }
                                 //return;
+
                             }
                         }
                     }
 
-                    if (piece != null) System.out.println(piece);
+                    //if (piece != null) System.out.println(piece);
                     if (board.getNumberOfBluePieces() == 3) {
                         this.addStatus(Status.ACTIVE_FLY);
                         gamePhase = Status.PHASE_3;
@@ -211,40 +212,66 @@ public class Player implements State, ActionListener {
 
                     //return;
                 } else if (gamePhase == Status.PHASE_3){
+                    System.out.println("-------------------------");
                     System.out.println("Phase 3 starts");
+                    System.out.println(this.statusList());
 
-                    if(currentMove!=null){
+                    if (currentMove != null) {
                         System.out.println("In progress");
+
                     }
 
-                    if (board.hasPieceAt(entry.getValue())){
+                    if (board.hasPieceAt(entry.getValue())) {
                         piece = board.getPiece(entry.getValue());
-
-                        System.out.println("Get piece at " + piece.getCurrentPosition());
-
-                        if (this.hasStatus(Status.ACTIVE_FLY)){
-                            currentMove = new FlyPieceMove(piece);
-                        } else {
-                            currentMove = new MovePieceMove(piece);
+                        if (piece.isRed == isRed) {
+                            if (this.hasStatus(Status.ACTIVE_FLY)) {
+                                currentMove = new FlyPieceMove(piece);
+                            } else {
+                                currentMove = new MovePieceMove(piece);
+                            }
                         }
+                        //System.out.print(name);
+                        //System.out.println("New");
+
+
                     } else {
                         if (currentMove != null) {
                             piece = currentMove.getPiece();
-                            currentMove.execute(piece, board, entry.getValue());
-                            currentMove = null;
-                            board.updateMills();
-                            if (piece.hasStatus(Status.IN_MILL)&&(!board.isAllMill(!isRed)) ){
-                                previousPhase=gamePhase;
-                                gamePhase=Status.PHASE_REMOVE;
+                            if (this.hasStatus(Status.ACTIVE_FLY)){
+                                currentMove.execute(piece, board,entry.getValue());
+                                currentMove = null;
+                                board.updateMills();
+                                if (piece.hasStatus(Status.IN_MILL)&&(!board.isAllMill(!isRed)) ){
+                                    previousPhase=gamePhase;
+                                    gamePhase=Status.PHASE_REMOVE;
 
+                                }
+                                else {
+                                    //System.out.println("Empty");
+                                    isInTurn = false;
+                                }
+                            } else {
+                                if (piece.getCurrentPosition().getAdjacentPositions(board).contains(entry.getValue())) {
+                                    currentMove.execute(piece, board, entry.getValue());
+                                    currentMove = null;
+                                    board.updateMills();
+                                    if (piece.hasStatus(Status.IN_MILL)&&(!board.isAllMill(!isRed)) ){
+                                        previousPhase=gamePhase;
+                                        gamePhase=Status.PHASE_REMOVE;
+
+                                    }
+                                    else {
+                                        //System.out.println("Empty");
+                                        isInTurn = false;
+                                    }
+                                    //return;
+                                }
                             }
-                            else {
-                                //System.out.println("Empty");
-                                isInTurn = false;
-                            }
-                            isInTurn = false;
                         }
                     }
+
+                    if (piece != null) System.out.println(piece);
+
                 }
                 else if (gamePhase == Status.PHASE_REMOVE) {
                     if (board.hasPieceAt(entry.getValue())) {
