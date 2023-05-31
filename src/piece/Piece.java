@@ -54,6 +54,7 @@ public class Piece extends JLabel implements State{
         currentPosition=position;
         this.isRed = status == Status.RED;
         statusSet.addStatus(Status.OUTSIDE_MILL);
+        statusSet.addStatus(status);
         //setBackground(Color.PINK);
         setOpaque(false);
         getPieceImage();

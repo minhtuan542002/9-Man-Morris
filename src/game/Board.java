@@ -283,16 +283,19 @@ public  class Board extends JPanel {
         layeredPane.remove(piece.pieceImage);
     }
 
+    public void removePiece(Piece piece, Position position){
+        mapping.remove(position, piece);
+        layeredPane.remove(piece.pieceImage);
+    }
+
     /**
      * Add a new piece to a position in the board
      * @param piece The piece to be added
      * @param position The position to add the piece at
      */
     public void addPieceAt(Piece piece, Position position){
-        mapping.put(position, piece);
-        //positionButtons.remove(position);
-        //piece.setCurrentPosition(position);
-        //layeredPane.add(piece,1);
+        if(mapping.get(position)==null)mapping.put(position, piece);
+
         layeredPane.add(piece.pieceImage, 0);
         piece.setBounds(position.getBounds());
         piece.pieceImage.setBounds(position.getBounds());
@@ -333,9 +336,11 @@ public  class Board extends JPanel {
      */
     public int getNumberOfPieces (Status colour){
         int no=0;
-        for (Map.Entry<Position,Piece> i: mapping.entrySet()){
-            if (i.getValue().hasStatus(colour)){
-                no +=1;
+        for (Map.Entry<Point,Position> entry: positions.entrySet()){
+            if(hasPieceAt(entry.getValue())) {
+                if (getPiece(entry.getValue()).hasStatus(colour)) {
+                    no += 1;
+                }
             }
         }
         return no;
@@ -344,8 +349,8 @@ public  class Board extends JPanel {
 
     public boolean isGameOver(Player player, Status gamePhase){
         //Case 1: red player has less or equal to 2 pieces
-        System.out.println("-------------------------");
-        System.out.println("Start detecting End game");
+        //System.out.println("-------------------------");
+        //System.out.println("Start detecting End game");
         if (gamePhase == Status.PHASE_3) {
             int numberRedPieces = getNumberOfPieces(Status.RED);
             int numberBluePieces = getNumberOfPieces(Status.BLUE);
@@ -364,33 +369,37 @@ public  class Board extends JPanel {
         //Case 2: player is unable to move
         if(gamePhase==Status.PHASE_2) {
             if (player.hasStatus(Status.RED)) {
-                System.out.println("Start analyzing player red");
+                //System.out.println("Start analyzing player red");
                 if (!pieceSetHasAvailableMove(Status.RED)) {
-                    System.out.println("Red piece has more move: " + pieceSetHasAvailableMove(Status.RED));
-                    System.out.println("Red Player lose");
+                    //System.out.println("Red piece has more move: " + pieceSetHasAvailableMove(Status.RED));
+                    //System.out.println("Red Player lose");
                     return true;
                 }
             } else {
-                System.out.println("Start analyzing player blue");
+                //System.out.println("Start analyzing player blue");
                 if (!pieceSetHasAvailableMove(Status.BLUE)) {
-                    System.out.println("BLue piece has more move: " + pieceSetHasAvailableMove(Status.BLUE));
-                    System.out.println("Blue Player lose");
+                    //System.out.println("BLue piece has more move: " + pieceSetHasAvailableMove(Status.BLUE));
+                    //System.out.println("Blue Player lose");
                     return true;
                 }
             }
         }
 
-        System.out.println("-------------------------");
+        //System.out.println("-------------------------");
         return false;
     }
 
     public boolean pieceSetHasAvailableMove(Status status){
-        for (Map.Entry<Position,Piece> i: mapping.entrySet()){
-            Piece temp = i.getValue();
-            if (temp.hasStatus(status)){
-                if (temp.hasAvailableMove(this)){
-                    return true;
-                }
+        for (Map.Entry<Point, Position> entry : positions.entrySet()){
+            if(hasPieceAt(entry.getValue())) {
+                Piece temp = getPiece(entry.getValue());
+                try {
+                    if (temp.hasStatus(status)) {
+                        if (temp.hasAvailableMove(this)) {
+                            return true;
+                        }
+                    }
+                } catch (Exception ignore) { }
             }
         }
         return false;

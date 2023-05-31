@@ -123,6 +123,7 @@ public class Game {
             if (board.isGameOver(player1, player1.getGamePhase())){
                 System.out.println("Game Over");
                 display.announceEndGame(player2);
+                running=false;
             }
             if(player1.finishedTurn()){
                 toggleTurn();
@@ -136,6 +137,7 @@ public class Game {
             if (board.isGameOver(player2, player2.getGamePhase())){
                 System.out.println("Game Over");
                 display.announceEndGame(player1);
+                running=false;
             }
             if(player2.finishedTurn()){
                 toggleTurn();

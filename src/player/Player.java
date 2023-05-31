@@ -130,6 +130,17 @@ public class Player implements State, ActionListener {
             if(entry.getValue()==e.getSource()){
                 Piece piece = null;
                 //System.out.println(entry.getKey());
+                if(gamePhase==Status.PHASE_2 ) {
+                    System.out.println("PHRASE 3--------------------------------------------------------");
+                    System.out.println(board.getNumberOfPieces(Status.BLUE));
+                    System.out.println(board.getNumberOfPieces(Status.RED));
+                    if (isRed && board.getNumberOfPieces(Status.RED) == 3) {
+                        gamePhase = Status.PHASE_3;
+                    }
+                    if (!isRed && board.getNumberOfPieces(Status.BLUE) == 3) {
+                        gamePhase = Status.PHASE_3;
+                    }
+                }
                 if (gamePhase == Status.PHASE_1) {
 
                     if(!board.hasPieceAt(entry.getValue())) {
@@ -251,22 +262,14 @@ public class Player implements State, ActionListener {
                                 currentMove = null;
                                 gamePhase = previousPhase;
 
+                                System.out.println(gamePhase);
+
                                 isInTurn = false;
                             }
                         }
                     }
 
-                    if(gamePhase==Status.PHASE_2) {
-                        System.out.println("PHRASE 3--------------------------------------------------------");
-                        if (isRed && board.getNumberOfPieces(Status.RED) == 3) {
-                            gamePhase = Status.PHASE_3;
-                        }
-                        if (!isRed && board.getNumberOfPieces(Status.BLUE) == 3) {
-                            gamePhase = Status.PHASE_3;
-                        }
-                    }
                 }
-
             }
         }
     }
