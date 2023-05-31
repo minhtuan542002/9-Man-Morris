@@ -17,11 +17,10 @@ public class FlyPieceMove implements Move {
 
     @Override
     public String execute(Piece piece, Board board, Position position) {
-        if (!board.hasPieceAt(position)){
-            board.removePiece(piece);
-            board.addPieceAt(piece,position);
-            piece.setCurrentPosition(position);
-        }
+        board.removePiece(this.piece);
+        this.piece.setCurrentPosition(position);
+        board.addPieceAt(this.piece, position);
+        board.updateMills();
 
         return null;
     }

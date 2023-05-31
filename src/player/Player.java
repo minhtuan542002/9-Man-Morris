@@ -199,18 +199,6 @@ public class Player implements State, ActionListener {
                             }
                         }
                     }
-
-                    //if (piece != null) System.out.println(piece);
-                    if (board.getNumberOfBluePieces() == 3) {
-                        this.addStatus(Status.ACTIVE_FLY);
-                        gamePhase = Status.PHASE_3;
-                    } else if (board.getNumberOfRedPieces() == 3) {
-                        this.hasStatus(Status.ACTIVE_FLY);
-                        gamePhase = Status.PHASE_3;
-                    }
-                    //isInTurn=false;
-
-                    //return;
                 } else if (gamePhase == Status.PHASE_3){
                     System.out.println("-------------------------");
                     System.out.println("Phase 3 starts");
@@ -224,11 +212,7 @@ public class Player implements State, ActionListener {
                     if (board.hasPieceAt(entry.getValue())) {
                         piece = board.getPiece(entry.getValue());
                         if (piece.isRed == isRed) {
-                            if (this.hasStatus(Status.ACTIVE_FLY)) {
-                                currentMove = new FlyPieceMove(piece);
-                            } else {
-                                currentMove = new MovePieceMove(piece);
-                            }
+                            currentMove = new FlyPieceMove(piece);
                         }
                         //System.out.print(name);
                         //System.out.println("New");
@@ -237,7 +221,7 @@ public class Player implements State, ActionListener {
                     } else {
                         if (currentMove != null) {
                             piece = currentMove.getPiece();
-                            if (this.hasStatus(Status.ACTIVE_FLY)){
+                            if (!board.hasPieceAt(entry.getValue())){
                                 currentMove.execute(piece, board,entry.getValue());
                                 currentMove = null;
                                 board.updateMills();
@@ -249,22 +233,6 @@ public class Player implements State, ActionListener {
                                 else {
                                     //System.out.println("Empty");
                                     isInTurn = false;
-                                }
-                            } else {
-                                if (piece.getCurrentPosition().getAdjacentPositions(board).contains(entry.getValue())) {
-                                    currentMove.execute(piece, board, entry.getValue());
-                                    currentMove = null;
-                                    board.updateMills();
-                                    if (piece.hasStatus(Status.IN_MILL)&&(!board.isAllMill(!isRed)) ){
-                                        previousPhase=gamePhase;
-                                        gamePhase=Status.PHASE_REMOVE;
-
-                                    }
-                                    else {
-                                        //System.out.println("Empty");
-                                        isInTurn = false;
-                                    }
-                                    //return;
                                 }
                             }
                         }
@@ -282,11 +250,21 @@ public class Player implements State, ActionListener {
                                 currentMove.execute(piece, board, entry.getValue());
                                 currentMove = null;
                                 gamePhase = previousPhase;
+
                                 isInTurn = false;
                             }
                         }
                     }
 
+                    if(gamePhase==Status.PHASE_2) {
+                        System.out.println("PHRASE 3--------------------------------------------------------");
+                        if (isRed && board.getNumberOfPieces(Status.RED) == 3) {
+                            gamePhase = Status.PHASE_3;
+                        }
+                        if (!isRed && board.getNumberOfPieces(Status.BLUE) == 3) {
+                            gamePhase = Status.PHASE_3;
+                        }
+                    }
                 }
 
             }

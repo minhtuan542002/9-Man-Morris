@@ -328,40 +328,27 @@ public  class Board extends JPanel {
     }
 
     /**
-     * Get the number of Red Pieces currently in the board
-     * @return int indicate the number of red piece
+     * Get the number of Red/Blue Pieces currently in the board
+     * @return int indicate the number of piece
      */
-    public int getNumberOfRedPieces (){
-        int redNo=0;
+    public int getNumberOfPieces (Status colour){
+        int no=0;
         for (Map.Entry<Position,Piece> i: mapping.entrySet()){
-            if (i.getValue().hasStatus(Status.RED)){
-                redNo +=1;
+            if (i.getValue().hasStatus(colour)){
+                no +=1;
             }
         }
-        return redNo;
+        return no;
     }
 
-    /**
-     * Get the number of Blue Pieces currently in the board
-     * @return int indicate the number of blue piece
-     */
-    public int getNumberOfBluePieces (){
-        int blueNo=0;
-        for (Map.Entry<Position,Piece> i: mapping.entrySet()){
-            if (i.getValue().hasStatus(Status.BLUE)){
-                blueNo +=1;
-            }
-        }
-        return blueNo;
-    }
 
     public boolean isGameOver(Player player, Status gamePhase){
         //Case 1: red player has less or equal to 2 pieces
         System.out.println("-------------------------");
         System.out.println("Start detecting End game");
         if (gamePhase == Status.PHASE_3) {
-            int numberRedPieces = getNumberOfRedPieces();
-            int numberBluePieces = getNumberOfBluePieces();
+            int numberRedPieces = getNumberOfPieces(Status.RED);
+            int numberBluePieces = getNumberOfPieces(Status.BLUE);
 
             if (numberRedPieces <= 2) {
                 System.out.println(numberRedPieces);
