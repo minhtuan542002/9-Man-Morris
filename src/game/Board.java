@@ -359,7 +359,7 @@ public  class Board extends JPanel {
         //Case 1: red player has less or equal to 2 pieces
         System.out.println("-------------------------");
         System.out.println("Start detecting End game");
-        if (gamePhase != Status.PHASE_1) {
+        if (gamePhase == Status.PHASE_3) {
             int numberRedPieces = getNumberOfRedPieces();
             int numberBluePieces = getNumberOfBluePieces();
 
@@ -375,21 +375,24 @@ public  class Board extends JPanel {
             }
         }
         //Case 2: player is unable to move
-        if (player.hasStatus(Status.RED)) {
-            System.out.println("Start analyzing player red");
-            if (!pieceSetHasAvailableMove(Status.RED)) {
-                System.out.println("Red piece has more move: " + pieceSetHasAvailableMove(Status.RED));
-                System.out.println("Red Player lose");
-                return true;
-            }
-        } else {
-            System.out.println("Start analyzing player blue");
-            if (!pieceSetHasAvailableMove(Status.BLUE)){
-                System.out.println("BLue piece has more move: " + pieceSetHasAvailableMove(Status.BLUE));
-                System.out.println("Blue Player lose");
-                return true;
+        if(gamePhase==Status.PHASE_2) {
+            if (player.hasStatus(Status.RED)) {
+                System.out.println("Start analyzing player red");
+                if (!pieceSetHasAvailableMove(Status.RED)) {
+                    System.out.println("Red piece has more move: " + pieceSetHasAvailableMove(Status.RED));
+                    System.out.println("Red Player lose");
+                    return true;
+                }
+            } else {
+                System.out.println("Start analyzing player blue");
+                if (!pieceSetHasAvailableMove(Status.BLUE)) {
+                    System.out.println("BLue piece has more move: " + pieceSetHasAvailableMove(Status.BLUE));
+                    System.out.println("Blue Player lose");
+                    return true;
+                }
             }
         }
+
         System.out.println("-------------------------");
         return false;
     }
