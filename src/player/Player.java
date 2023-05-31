@@ -288,11 +288,7 @@ public class Player implements State, ActionListener {
                     }
 
                 }
-                if (board.isGameOver(this, gamePhase)){
-                    System.out.println("Game Over");
-                    gamePhase = Status.GAME_OVER;
-                    break;
-                }
+
             }
         }
     }

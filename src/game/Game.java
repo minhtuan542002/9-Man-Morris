@@ -117,9 +117,12 @@ public class Game {
      */
     public void update() {
         if(isRedTurn){
-            switch (player1.getGamePhase()){
-                case GAME_OVER -> running = false;
-                case PHASE_REMOVE -> display.removeAnnounce(isRedTurn);
+            if (player1.getGamePhase()== Status.PHASE_REMOVE){
+                display.removeAnnounce(isRedTurn);
+            }
+            if (board.isGameOver(player1, player1.getGamePhase())){
+                System.out.println("Game Over");
+                display.announceEndGame(player2);
             }
             if(player1.finishedTurn()){
                 toggleTurn();
@@ -127,9 +130,12 @@ public class Game {
             }
         }
         else {
-            switch (player2.getGamePhase()){
-                case GAME_OVER -> running = false;
-                case PHASE_REMOVE -> display.removeAnnounce(isRedTurn);
+            if (player2.getGamePhase()== Status.PHASE_REMOVE){
+                display.removeAnnounce(isRedTurn);
+            }
+            if (board.isGameOver(player2, player2.getGamePhase())){
+                System.out.println("Game Over");
+                display.announceEndGame(player1);
             }
             if(player2.finishedTurn()){
                 toggleTurn();
@@ -149,7 +155,7 @@ public class Game {
             update();
             display.repaint();
         }
-        display.announceEndGame();
+        //display.announceEndGame();
         frame.dispose();
     }
 

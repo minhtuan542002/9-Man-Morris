@@ -1,4 +1,6 @@
 package game;
+import player.Player;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -60,8 +62,8 @@ public class Display extends JPanel{
     /**
      * Displaye "Game over" to announce the game is over.
      * */
-    public void announceEndGame(){
-        text_field.setText("Game Over");
+    public void announceEndGame(Player winner){
+        text_field.setText("Game Over: "+winner.toString()+" win");
     }
 
     public void removeAnnounce(Boolean isRedTurn){
