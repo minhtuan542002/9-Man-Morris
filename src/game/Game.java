@@ -116,6 +116,9 @@ public class Game {
      * Update the game states and resources
      */
     public void update() {
+        if(player1.getGamePhase()==null || player2.getGamePhase()==null){
+            running=false;
+        }
         if(isRedTurn){
             if (player1.getGamePhase()== Status.PHASE_REMOVE){
                 display.removeAnnounce(isRedTurn);
@@ -123,7 +126,7 @@ public class Game {
             if (board.isGameOver(player1, player1.getGamePhase())){
                 System.out.println("Game Over");
                 display.announceEndGame(player2);
-                running=false;
+                //running=false;
             }
             if(player1.finishedTurn()){
                 toggleTurn();
@@ -137,7 +140,7 @@ public class Game {
             if (board.isGameOver(player2, player2.getGamePhase())){
                 System.out.println("Game Over");
                 display.announceEndGame(player1);
-                running=false;
+                //running=false;
             }
             if(player2.finishedTurn()){
                 toggleTurn();

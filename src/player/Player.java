@@ -185,14 +185,13 @@ public class Player implements State, ActionListener {
                         if (piece.isRed == isRed) {
                             currentMove = new MovePieceMove(piece);
                         }
-                        //System.out.print(name);
-                        //System.out.println("New");
-
+                        else currentMove = null;
 
                     } else {
                         if (currentMove != null) {
                             piece = currentMove.getPiece();
-                            if (piece.getCurrentPosition().getAdjacentPositions(board).contains(entry.getValue())) {
+                            if (piece.getCurrentPosition().getAdjacentPositions(board).contains(entry.getValue())
+                            && !board.hasPieceAt(entry.getValue())) {
                                 currentMove.execute(piece, board, entry.getValue());
                                 currentMove = null;
                                 board.updateMills();
@@ -225,6 +224,7 @@ public class Player implements State, ActionListener {
                         if (piece.isRed == isRed) {
                             currentMove = new FlyPieceMove(piece);
                         }
+                        else currentMove=null;
                         //System.out.print(name);
                         //System.out.println("New");
 
@@ -248,9 +248,6 @@ public class Player implements State, ActionListener {
                             }
                         }
                     }
-
-                    if (piece != null) System.out.println(piece);
-
                 }
                 else if (gamePhase == Status.PHASE_REMOVE) {
                     if (board.hasPieceAt(entry.getValue())) {
@@ -268,7 +265,13 @@ public class Player implements State, ActionListener {
                             }
                         }
                     }
+                }
+                else if(gamePhase == Status.GAME_OVER) {
+                    gamePhase=null;
+                }
 
+                if(board.isGameOver(this,gamePhase)){
+                    gamePhase=Status.GAME_OVER;
                 }
             }
         }
