@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,7 +53,7 @@ public  class Board extends JPanel {
     /**
      * List of all positions on the map, keyed by layers and position code nested in Point class
      */
-    public Map<Point, Position> positions = new HashMap<>();
+    private Map<Point, Position> positions = new HashMap<>();
 
 
     /**
@@ -259,7 +260,7 @@ public  class Board extends JPanel {
      * @return Return a Hash map of Point connecting to Position
      */
     public Map<Point, Position> getPositions() {
-        return positions;
+        return Collections.unmodifiableMap(positions);
     }
 
     /**

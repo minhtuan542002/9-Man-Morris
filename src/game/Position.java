@@ -31,9 +31,6 @@ public class Position extends JButton {
         setOpaque(false);
     }
 
-    private void calculate_coordinate(){
-
-    }
 
     /**
      * Change layer information

@@ -126,7 +126,7 @@ public class Player implements State, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        for(Map.Entry<Point, Position> entry : board.positions.entrySet()){
+        for(Map.Entry<Point, Position> entry : board.getPositions().entrySet()){
             if(entry.getValue()==e.getSource()){
                 Piece piece = null;
                 //System.out.println(entry.getKey());
