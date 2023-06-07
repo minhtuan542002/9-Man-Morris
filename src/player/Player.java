@@ -24,23 +24,23 @@ import java.util.Map;
 public class Player implements State, ActionListener {
 
     private String name;
-    private Board board;
-    private PieceSet pieceSet;
+    private final Board board;
+    private final PieceSet pieceSet;
     private Status gamePhase;
     private Status previousPhase;
     private Move currentMove = null;
     private Boolean isInTurn =false;
     private final StatusSet statusSet = new StatusSet();
 
-    private boolean isRed;
+    private final boolean isRed;
 
      /**
       * Constructor
       *
-      * @param name
-      * @param board
-      * @param pieceSet
-      * @param isRed
+      * @param name: Player name
+      * @param board: game board
+      * @param pieceSet: piece set player in charge
+      * @param isRed: player is Red or Blue
       */
     public Player(String name, Board board, PieceSet pieceSet, boolean isRed) {
 
@@ -62,26 +62,24 @@ public class Player implements State, ActionListener {
 
     /**
      * Print Player name
-     *
-     * @param 
      * */
 
     @Override
     public String toString(){
         return name;
     }
+
      /**
      * Get Player name
-     *
-     * @param 
      * */
     public String getName() {
         return name;
     }
+
      /**
      * set Player name
      *
-     * @param name
+     * @param name: String represent Player name
      * */
     public void setName(String name) {
         this.name = name;
@@ -89,17 +87,18 @@ public class Player implements State, ActionListener {
      /**
      * Check if actor has a status
      *
-     * @param status
+     * @param status: Status used to check if player has this status
      * */
+
     @Override
     public boolean hasStatus(Enum<?> status) {
         return statusSet.hasStatus(status);
     }
 
     /**
-     * Add stattus to StatusSet
+     * Add status to StatusSet
      *
-     * @param status
+     * @param status: Status added to status List
      * */
     @Override
     public void addStatus(Enum<?> status) {
@@ -108,16 +107,15 @@ public class Player implements State, ActionListener {
     /**
      * Remove Status from statusSet
      *
-     * @param status
+     * @param status: Status needs to be removed
      * */
     @Override
     public void removeStatus(Enum<?> status) {
         statusSet.removeStatus(status);
     }
+
     /**
      * get the Status list
-     *
-     * @param
      * */
     @Override
     public List<Enum<?>> statusList() {
@@ -182,7 +180,7 @@ public class Player implements State, ActionListener {
 
                     if (board.hasPieceAt(entry.getValue())) {
                         piece = board.getPiece(entry.getValue());
-                        if (piece.isRed == isRed) {
+                        if (piece.isRed() == isRed) {
                             currentMove = new MovePieceMove(piece);
                         }
                         else currentMove = null;
@@ -221,7 +219,7 @@ public class Player implements State, ActionListener {
 
                     if (board.hasPieceAt(entry.getValue())) {
                         piece = board.getPiece(entry.getValue());
-                        if (piece.isRed == isRed) {
+                        if (piece.isRed() == isRed) {
                             currentMove = new FlyPieceMove(piece);
                         }
                         else currentMove=null;
@@ -252,7 +250,7 @@ public class Player implements State, ActionListener {
                 else if (gamePhase == Status.PHASE_REMOVE) {
                     if (board.hasPieceAt(entry.getValue())) {
                         piece=board.getPiece(entry.getValue());
-                        if (piece.isRed != isRed) {
+                        if (piece.isRed() != isRed) {
                             if(piece.hasStatus(Status.OUTSIDE_MILL)) {
                                 currentMove = new RemovePieceMove(piece);
                                 currentMove.execute(piece, board, entry.getValue());

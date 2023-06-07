@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +18,7 @@ public class Piece extends JLabel implements State{
     /**
      * The colour of the piece. True if red and false if blue
      */
-    public boolean isRed;
+    private boolean isRed;
     /**
      * The set of piece's statuses
      */
@@ -28,12 +27,12 @@ public class Piece extends JLabel implements State{
     /**
      * The size of piece displayed on the board
      */
-    private int tileSize;
+    private final int tileSize;
 
     /**
      * The Jlabel containing the piece's image
      */
-    public JLabel pieceImage;
+    private JLabel pieceImage;
     /**
      * Corresponding position of the piece. Can be null when it is not on the board
      */
@@ -41,7 +40,7 @@ public class Piece extends JLabel implements State{
     /**
      * Image of the piece in BufferedImage format
      */
-    public BufferedImage tokenPiece;
+    private BufferedImage tokenPiece;
 
     /**
      * Constructor method for piece
@@ -57,10 +56,10 @@ public class Piece extends JLabel implements State{
         statusSet.addStatus(status);
         //setBackground(Color.PINK);
         setOpaque(false);
-        getPieceImage();
+        parsePieceImage();
 
     }
-    private void getPieceImage() {
+    private void parsePieceImage() {
         try {
             if(this.isRed){
                 statusSet.addStatus(Status.RED);
@@ -77,6 +76,14 @@ public class Piece extends JLabel implements State{
         }
     }
 
+    public JLabel getPieceImage() {
+        return pieceImage;
+    }
+
+    public boolean isRed() {
+        return isRed;
+    }
+
     public void setCurrentPosition(Position position){this.currentPosition=position;}
 
     public Position getCurrentPosition() {
@@ -86,6 +93,7 @@ public class Piece extends JLabel implements State{
     public void toggleColour(){
         this.isRed = !this.isRed;
     }
+
 
 
     public void draw(Graphics g, int x_position, int y_position) {

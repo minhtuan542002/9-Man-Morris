@@ -15,24 +15,24 @@ import java.util.Map;
 import static java.lang.Math.round;
 
 /**
- * The class that logically and visually implement 9 Man's Morris game board
+ * The class that logically and visually implement 9 Man Morris game board
  *
  */
 public  class Board extends JPanel {
     /**
      * Optimal size of the board. The board is a square
      */
-    final int BOARD_LENGTH = 800;
+    final private int BOARD_LENGTH = 800;
 
     /**
      * Size of click area in the board, indicating one side of a square
      */
-    final int BUTTON_SIZE = 70;
+    final private int BUTTON_SIZE = 70;
 
     /**
      * The distance between each layers of position in a board
      */
-    final int LAYER_DISTANCE = 110;
+    final private int LAYER_DISTANCE = 110;
 
     /**
      * Layered Pane to implement multiple feature on the board (including stacking positions,
@@ -161,7 +161,7 @@ public  class Board extends JPanel {
                         inMill=false;
                         break;
                     }
-                    else if(!(mapping.get(positions.get(new Point(layer, i + j))).isRed==mapping.get(positions.get(new Point(layer, i))).isRed)){
+                    else if(!(mapping.get(positions.get(new Point(layer, i + j))).isRed()==mapping.get(positions.get(new Point(layer, i))).isRed())){
                         inMill = false;
                         break;
                     }
@@ -184,7 +184,7 @@ public  class Board extends JPanel {
                     inMill =false;
                     break;
                 }
-                else if(!(mapping.get(positions.get(new Point(layer, j))).isRed==mapping.get(positions.get(new Point(layer, 0))).isRed)){
+                else if(!(mapping.get(positions.get(new Point(layer, j))).isRed()==mapping.get(positions.get(new Point(layer, 0))).isRed())){
 
                     inMill = false;
                         break;
@@ -208,7 +208,7 @@ public  class Board extends JPanel {
                     inMill =false;
                     break;
                 }
-                else if(!(mapping.get(positions.get(new Point(j, i))).isRed==mapping.get(positions.get(new Point(0, i))).isRed)){
+                else if(!(mapping.get(positions.get(new Point(j, i))).isRed()==mapping.get(positions.get(new Point(0, i))).isRed())){
 
                     inMill=false;
                     break;
@@ -242,7 +242,7 @@ public  class Board extends JPanel {
         for(int layer=0; layer<3; layer++){
             for(int i=0; i<8; i++){
                 if(hasPieceAt(positions.get(new Point(layer, i)))) {
-                    if(mapping.get(positions.get(new Point(layer, i))).isRed==isRed) {
+                    if(mapping.get(positions.get(new Point(layer, i))).isRed()==isRed) {
                         if (mapping.get(positions.get(new Point(layer, i))).hasStatus(Status.OUTSIDE_MILL)) {
                             System.out.println("NOT ALL MILL");
                             return false;
@@ -281,12 +281,12 @@ public  class Board extends JPanel {
             throw new RuntimeException("Piece do ot have position");
         }
         mapping.remove(piece.getCurrentPosition(), piece);
-        layeredPane.remove(piece.pieceImage);
+        layeredPane.remove(piece.getPieceImage());
     }
 
     public void removePiece(Piece piece, Position position){
         mapping.remove(position, piece);
-        layeredPane.remove(piece.pieceImage);
+        layeredPane.remove(piece.getPieceImage());
     }
 
     /**
@@ -297,9 +297,9 @@ public  class Board extends JPanel {
     public void addPieceAt(Piece piece, Position position){
         if(mapping.get(position)==null)mapping.put(position, piece);
 
-        layeredPane.add(piece.pieceImage, 0);
+        layeredPane.add(piece.getPieceImage(), 0);
         piece.setBounds(position.getBounds());
-        piece.pieceImage.setBounds(position.getBounds());
+        piece.getPieceImage().setBounds(position.getBounds());
         System.out.println(mapping.size());
         //if()
     }
@@ -309,10 +309,8 @@ public  class Board extends JPanel {
      * @return The ImageIcon containing the board's visual
      */
     public ImageIcon getImageIcon() {
-        if(new ImageIcon("src/image/Board.png")==null)System.out.println("HH");
+//        if(new ImageIcon("src/image/Board.png")==null)System.out.println("HH");
         return new ImageIcon("src/image/Board.png");
-
-
     }
 
     /**
@@ -370,23 +368,16 @@ public  class Board extends JPanel {
         //Case 2: player is unable to move
         if(gamePhase==Status.PHASE_2) {
             if (player.hasStatus(Status.RED)) {
-                //System.out.println("Start analyzing player red");
                 if (!pieceSetHasAvailableMove(Status.RED)) {
-                    //System.out.println("Red piece has more move: " + pieceSetHasAvailableMove(Status.RED));
-                    //System.out.println("Red Player lose");
                     return true;
                 }
             } else {
-                //System.out.println("Start analyzing player blue");
                 if (!pieceSetHasAvailableMove(Status.BLUE)) {
-                    //System.out.println("BLue piece has more move: " + pieceSetHasAvailableMove(Status.BLUE));
-                    //System.out.println("Blue Player lose");
+
                     return true;
                 }
             }
         }
-
-        //System.out.println("-------------------------");
         return false;
     }
 

@@ -13,7 +13,7 @@ public class PieceSet extends JPanel {
     /**
      * The ArrayList containing the unused pieces
      */
-    List<Piece> pieceSet = new ArrayList<>();
+    private List<Piece> pieceSet = new ArrayList<>();
 
     /**
      * Constructor method for piece set, create new pieces for the game

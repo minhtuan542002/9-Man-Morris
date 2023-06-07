@@ -12,22 +12,20 @@ import java.io.IOException;
  */
 public class StartPanel extends JPanel{
     // Tile
-    final int originalTileSize = 16; // Tile size
-    final int scale = 3; // Tile scale
-    final int tileSize = originalTileSize * scale;
+    private final int originalTileSize = 16; // Tile size
+    private final int scale = 3; // Tile scale
+    private final int tileSize = originalTileSize * scale;
 
     // 23 x 13 square
-    final int maxScreenCol = 32;
-    final int maxScreenRow = 18;
+    private final int maxScreenCol = 32;
+    private final int maxScreenRow = 18;
 
-    final int screenWidth = tileSize * maxScreenCol;
-    final int screenHeight = tileSize * maxScreenRow;
+    private final int screenWidth = tileSize * maxScreenCol;
+    private final int screenHeight = tileSize * maxScreenRow;
 
     private boolean gameStart;
 
-    public BufferedImage backgroundImage;
-
-
+    private BufferedImage backgroundImage;
 
     public StartPanel(){
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));

@@ -19,7 +19,6 @@ public class Display extends JPanel{
      * Text field inside the text title
      */
     private JLabel text_field = null;
-    //public Display()
 
     /**
      * Initiate settings and visual configurations for the game
@@ -61,11 +60,12 @@ public class Display extends JPanel{
     }
 
     /**
-     * Displaye "Game over" to announce the game is over.
+     * Display "Game over" to announce the game is over.
      * */
     public void announceEndGame(Player winner){
 
         text_field.setText("Game Over: "+winner.toString()+" win");
+        text_field.setFont(new Font("Ink Free",Font.BOLD,65));
         if(winner.hasStatus(Status.RED)){
             text_field.setForeground(Color.red);
         }
